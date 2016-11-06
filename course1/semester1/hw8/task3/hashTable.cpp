@@ -185,6 +185,7 @@ void deleteHash(HashTable *&hashTable)
 		if (hashTable->table[i] != nullptr)
 			deleteListOfString(hashTable->table[i]);
 	
+	delete[] hashTable->table;
 	delete hashTable;
 	hashTable = nullptr;
 }
