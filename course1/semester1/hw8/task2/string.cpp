@@ -41,10 +41,7 @@ void concatenation(String *original, String *added)
 
 bool isEquality(String *first, String *second)
 {
-	if (strcmp(first->string, second->string) == 0)
-		return true;
-	else
-		return false;
+	return strcmp(first->string, second->string) == 0;
 }
 
 bool isEmpty(String *string)
