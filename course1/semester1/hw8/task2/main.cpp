@@ -7,7 +7,7 @@ void outputString(String *str)
 {
 	char *temp = toChar(str);
 	cout << temp;
-	delete temp;
+	delete[] temp;
 }
 
 int main()
