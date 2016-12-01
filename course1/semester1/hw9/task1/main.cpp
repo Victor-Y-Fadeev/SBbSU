@@ -11,7 +11,7 @@ void output(Graph *graph)
 	int *way = returnWay(graph);
 	int *length = nullptr;
 	int *tops = nullptr;
-	sortTopsSequence(graph,length, tops);
+	sortTopsSequence(graph, length, tops);
 
 	for (int i = 1; i < size(graph); i++)
 	{
