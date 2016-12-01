@@ -31,7 +31,7 @@ Node *createNode(int key, int value, Node *next)
 	return newNode;
 }
 
-void insert(PriorityQueue *priorityQueue, int key, int value)
+void add(PriorityQueue *priorityQueue, int key, int value)
 {
 	if (isEmpty(priorityQueue))
 	{
@@ -52,18 +52,6 @@ void insert(PriorityQueue *priorityQueue, int key, int value)
 	temp->next = createNode(key, value, temp->next);
 }
 
-int extractMinimum(PriorityQueue *priorityQueue)
-{
-	if (isEmpty(priorityQueue))
-		return INT_MIN;
-
-	Node *temp = priorityQueue->head;
-	int answer = temp->value;
-	priorityQueue->head = temp->next;
-	delete temp;
-	
-	return answer;
-}
 
 void remove(PriorityQueue *priorityQueue, int value)
 {
@@ -89,10 +77,23 @@ void remove(PriorityQueue *priorityQueue, int value)
 	delete toDelete;
 }
 
-void update(PriorityQueue *priorityQueue, int key, int value)
+void insert(PriorityQueue *priorityQueue, int key, int value)
 {
 	remove(priorityQueue, value);
-	insert(priorityQueue, key, value);
+	add(priorityQueue, key, value);
+}
+
+int extractMinimum(PriorityQueue *priorityQueue)
+{
+	if (isEmpty(priorityQueue))
+		return INT_MIN;
+
+	Node *temp = priorityQueue->head;
+	int answer = temp->value;
+	priorityQueue->head = temp->next;
+	delete temp;
+	
+	return answer;
 }
 
 bool isEmpty(PriorityQueue *priorityQueue)
