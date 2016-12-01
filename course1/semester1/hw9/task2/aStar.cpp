@@ -78,6 +78,11 @@ char *output(Map *map)
 	return answer;
 }
 
+void aStar(Map *map, int startX, int startY, int finishX, int finishY)
+{
+
+}
+
 
 void deleteMap(Map *&map)
 {
