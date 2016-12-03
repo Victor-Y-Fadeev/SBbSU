@@ -181,7 +181,7 @@ void recordWay(Map *map, int current)
 	}
 }
 
-void aStar(Map *map, int startX, int startY, int finishX, int finishY)
+void performAStar(Map *map, int startX, int startY, int finishX, int finishY)
 {
 	createSupportElements(map);
 	int current = startY * map->sizeM + startX;
