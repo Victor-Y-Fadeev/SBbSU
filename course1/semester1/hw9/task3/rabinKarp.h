@@ -1,3 +1,3 @@
 #pragma once
 
-char *rabinKarp(char *original, char *substring);
+void rabinKarp(char *original, char *substring, int *answer);

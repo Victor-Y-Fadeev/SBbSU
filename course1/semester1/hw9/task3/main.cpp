@@ -3,6 +3,24 @@
 
 using namespace std;
 
+void output(int *answer)
+{
+	if (answer[0] == -1)
+	{
+		cout << "No matches" << endl;
+		return;
+	}
+
+	int i = 0;
+	cout << "Rabin-Karp algorithm: ";
+	while (answer[i] != -1)
+	{
+		cout << answer[i] << " ";
+		i++;
+	}
+	cout << endl;
+}
+
 int main()
 {
 	int const stringSize = 256;
@@ -15,9 +33,9 @@ int main()
 	cout << "Enter substring: ";
 	cin.getline(substring, stringSize);
 
-	char *answer = rabinKarp(string, substring);
-	cout << "Rabin-Karp algorithm: " << answer << endl;
+	int answer[stringSize];
+	rabinKarp(string, substring, answer);
+	output(answer);	
 
-	delete[] answer;
 	return 0;
 }

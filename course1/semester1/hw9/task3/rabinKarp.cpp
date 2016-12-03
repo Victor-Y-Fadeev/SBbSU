@@ -36,23 +36,8 @@ bool isEqual(char *original, char *substring, int size, int i)
 	return answer;
 }
 
-void addNumber(char *string, int number)
+void rabinKarp(char *original, char *substring, int *answer)
 {
-	char *temp = new char[stringSize];
-
-	sprintf(temp, "%d", number);
-	strcat(string, temp);
-	delete[] temp;
-
-	strcat(string, " ");
-}
-
-
-char *rabinKarp(char *original, char *substring)
-{
-	char *answer = new char[stringSize];
-	answer[0] = '\0';
-
 	int originalSize = strlen(original);
 	int substringSize = strlen(substring);
 	int numberInDegree = pow(101, substringSize - 1);
@@ -60,17 +45,20 @@ char *rabinKarp(char *original, char *substring)
 	int hash = hashFunction(original, substringSize);
 	int subHash = hashFunction(substring, substringSize);
 
+	int answerElement = 0;
 	for (int i = 0; i <= originalSize - substringSize; i++)
 	{
 		if (hash == subHash)
+		{
 			if (isEqual(original, substring, substringSize, i))
-				addNumber(answer, i + 1);
+			{
+				answer[answerElement] = i + 1;
+				answerElement++;
+			}
+		}
 
 		updateHash(hash, original, i, substringSize, numberInDegree);
 	}
 
-	if (answer[0] == '\0')
-		strcpy(answer, "No matches");
-
-	return answer;
+	answer[answerElement] = -1;
 }
