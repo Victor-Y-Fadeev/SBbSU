@@ -141,10 +141,10 @@ void processingOfTop(Map *map, int current, int goal, int top)
 {
 	int dist = map->dist[current] + 1;
 
-	if ((map->considered[top] == true) && (map->dist[top] <= dist))
+	if (map->considered[top] && (map->dist[top] <= dist))
 		return;
 	
-	if ((map->considered[top] == false) || (map->dist[top] > dist))
+	if (!map->considered[top] || (map->dist[top] > dist))
 	{
 		map->way[top] = current;
 		map->dist[top] = dist;
@@ -201,7 +201,7 @@ bool performAStar(Map *map, int startX, int startY, int finishX, int finishY)
 		processingOfAdjacent(map, current, goal);
 	}
 	
-	if (finish == true)
+	if (finish)
 		recordWay(map, current);
 
 	deleteSupportElements(map);
@@ -222,6 +222,6 @@ void deleteMap(Map *&map)
 {
 	deleteMatrix(map->matrix, map->sizeN);
 
-	delete[] map;
+	delete map;
 	map = nullptr;
 }
