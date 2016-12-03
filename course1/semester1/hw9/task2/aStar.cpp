@@ -181,7 +181,7 @@ void recordWay(Map *map, int current)
 	}
 }
 
-void performAStar(Map *map, int startX, int startY, int finishX, int finishY)
+bool performAStar(Map *map, int startX, int startY, int finishX, int finishY)
 {
 	createSupportElements(map);
 	int current = startY * map->sizeM + startX;
@@ -205,6 +205,7 @@ void performAStar(Map *map, int startX, int startY, int finishX, int finishY)
 		recordWay(map, current);
 
 	deleteSupportElements(map);
+	return finish;
 }
 
 

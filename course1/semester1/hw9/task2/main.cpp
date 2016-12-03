@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void performAStar(Map *map)
+bool performAStar(Map *map)
 {
 	int startX = 0;
 	int startY = 0;
@@ -17,18 +17,21 @@ void performAStar(Map *map)
 	cin >> finishX >> finishY;
 	cout << endl;
 
-	performAStar(map, startX - 1, startY - 1, finishX - 1, finishY - 1);
+	return performAStar(map, startX - 1, startY - 1, finishX - 1, finishY - 1);
 }
 
 int main()
 {
 	Map *map = loadMap("map.txt");
 	
-	performAStar(map);
-	
-	char *temp = output(map);
-	cout << temp << endl;
-	delete[] temp;
+	if (performAStar(map))
+	{
+		char *temp = output(map);
+		cout << temp << endl;
+		delete[] temp;
+	}
+	else
+		cout << "No Way!" << endl;
 
 	deleteMap(map);
 	return 0;
