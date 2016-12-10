@@ -3,15 +3,6 @@
 
 using namespace std;
 
-enum symbols
-{
-	digit = 0,
-	point,
-	exponent,
-	sign,
-	epsilon
-};
-
 struct Machine
 {
 	int **table;
@@ -58,16 +49,7 @@ bool testString(Machine *machine, char *string, int top)
 	if (top == -1)
 		return false;
 
-	if ((string[0] >= '0') && (string[0] <= '9'))
-		top = machine->table[top][digit];
-	else if (string[0] == '.')
-		top = machine->table[top][point];
-	else if ((string[0] == 'e') || ((string[0] == 'E')))
-		top = machine->table[top][exponent];
-	else if ((string[0] == '+') || ((string[0] == '-')))
-		top = machine->table[top][sign];
-	else if (string[0] == '\0')
-		top = machine->table[top][epsilon];
+	top = machine->table[top][(unsigned char)string[0]];
 	
 	return testString(machine, string + 1, top);
 }
@@ -77,7 +59,7 @@ bool testString(Machine *machine, char *string)
 	int top = 0;
 	return testString(machine, string, top);
 }
-
+	
 
 void deleteTable(int **&table, int sizeI)
 {

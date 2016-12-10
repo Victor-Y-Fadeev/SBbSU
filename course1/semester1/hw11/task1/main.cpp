@@ -19,6 +19,5 @@ int main()
 		cout << "No" << endl;
 
 	deleteMachine(machine);
-	system("pause");
 	return 0;
 }
