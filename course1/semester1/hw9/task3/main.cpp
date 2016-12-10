@@ -23,7 +23,7 @@ void output(int *answer)
 
 int main()
 {
-	int const stringSize = 256;
+	int const stringSize = 1024;
 
 	char string[stringSize] = {'\0'};
 	char substring[stringSize] = {'\0'};
@@ -36,6 +36,6 @@ int main()
 	int answer[stringSize];
 	rabinKarp(string, substring, answer);
 	output(answer);	
-
+	
 	return 0;
 }

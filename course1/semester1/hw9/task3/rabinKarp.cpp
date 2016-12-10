@@ -2,7 +2,7 @@
 #include <complex>
 #include <string.h>
 
-int const stringSize = 256;
+int const stringSize = 1024;
 
 int hashFunction(char *string, int size)
 {
@@ -36,11 +36,25 @@ bool isEqual(char *original, char *substring, int size, int i)
 	return answer;
 }
 
+int countNumberInDegree(int number, int degree)
+{
+	if (degree == 0)
+		return 1;
+
+	int answer = 1;
+	if (degree % 2 == 1)
+	{
+		answer *= number;
+		degree--;
+	}
+	return answer * countNumberInDegree(number * number, degree / 2);
+}
+
 void rabinKarp(char *original, char *substring, int *answer)
 {
 	int originalSize = strlen(original);
 	int substringSize = strlen(substring);
-	int numberInDegree = pow(101, substringSize - 1);
+	int numberInDegree = countNumberInDegree(101, substringSize - 1);
 
 	int hash = hashFunction(original, substringSize);
 	int subHash = hashFunction(substring, substringSize);
