@@ -1,5 +1,7 @@
 #include <iostream>
+#include <string.h>
 #include "lexicalAnalysis.h"
+#include "syntacticAnalysis.h"
 
 using namespace std;
 
@@ -7,16 +9,24 @@ int const stringSize = 1024;
 
 int main()
 {
-	Lexer *lexer = createLexer();
-
 	cout << "Enter testing string: ";
 	char string[stringSize] = {'\0'};
 	cin.getline(string, stringSize);
 
+	Lexer *lexer = createLexer();
 	char *temp = analyzeString(lexer, string);
-	cout << "Result: " << temp << endl;
-	delete[] temp;
- 
 	deleteLexer(lexer);
+
+	if (strcmp(temp, "") != 0)
+	{
+		if (parseString(temp))
+			cout << "Right string..." << endl;
+		else
+			cout << "Syntactic error!" << endl;
+	}
+	else
+		cout << "Lexical error!" << endl;
+
+	delete[] temp;
 	return 0;
 }

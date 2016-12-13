@@ -68,7 +68,7 @@ char *analyzeString(Lexer *lexer, char *string)
 			strcat(answer, " / ");
 		else
 		{
-			strcpy(answer, "Lexical error!");
+			strcpy(answer, "");
 			delete[] testingString;
 			return answer;
 		}
