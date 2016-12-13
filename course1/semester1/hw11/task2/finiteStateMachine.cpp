@@ -58,7 +58,13 @@ bool testString(Machine *machine, char *&string, int top)
 bool testString(Machine *machine, char *&string)
 {
 	int top = 0;
-	return testString(machine, string, top);
+	char *testingString = string;
+	bool answer = testString(machine, testingString, top);
+
+	if (answer)
+		string = testingString;
+
+	return answer;
 }
 	
 

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "finiteStateMachine.h"
+#include "lexicalAnalysis.h"
 
 using namespace std;
 
@@ -7,20 +7,16 @@ int const stringSize = 1024;
 
 int main()
 {
-	Machine *machine = loadMachine("numberTable.txt");
+	Lexer *lexer = createLexer();
 
 	cout << "Enter testing string: ";
-	char *string = new char[stringSize];
-	string[0] = '\0';
-	cin >> string;
+	char string[stringSize] = {'\0'};
+	cin.getline(string, stringSize);
 
-	char *temp = string;
-	if (testString(machine, temp))
-		cout << "Ok" << endl;
-	else
-		cout << "No" << endl;
-	
-	delete[] string;
-	deleteMachine(machine);
+	char *temp = analyzeString(lexer, string);
+	cout << "Result: " << temp << endl;
+	delete[] temp;
+ 
+	deleteLexer(lexer);
 	return 0;
 }
