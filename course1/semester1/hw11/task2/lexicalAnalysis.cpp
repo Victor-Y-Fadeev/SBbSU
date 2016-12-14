@@ -34,11 +34,7 @@ char *analyzeString(Lexer *lexer, char *string)
 	char *answer = new char[stringSize];
 	answer[0] = '\0';
 
-	char *testingString = new char[stringSize];
-	testingString[0] = '\0';
-	strcpy(testingString, string);
-
-	char *temp = testingString;
+	char *temp = string;
 	while (temp[0] != '\0')
 	{
 		if (testString(lexer->numberRule, temp))
@@ -54,12 +50,10 @@ char *analyzeString(Lexer *lexer, char *string)
 		else if (!testString(lexer->spaceRule, temp))
 		{
 			strcpy(answer, "");
-			delete[] testingString;
 			return answer;
 		}
 	}
 
-	delete[] testingString;
 	return answer;
 }
 

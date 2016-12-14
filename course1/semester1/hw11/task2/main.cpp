@@ -10,7 +10,8 @@ int const stringSize = 1024;
 int main()
 {
 	cout << "Enter testing string: ";
-	char string[stringSize] = {'\0'};
+	char *string = new char[stringSize];
+	string[0] = '\0';
 	cin.getline(string, stringSize);
 	
 	Lexer *lexer = createLexer();
@@ -28,5 +29,6 @@ int main()
 		cout << "Lexical error!" << endl;
 
 	delete[] temp;
+	delete[] string;
 	return 0;
 }
