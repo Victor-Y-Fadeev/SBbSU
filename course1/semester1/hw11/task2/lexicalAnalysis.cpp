@@ -11,6 +11,7 @@ struct Lexer
 	Machine *minusRule;
 	Machine *multiplyRule;
 	Machine *divideRule;
+	Machine *spaceRule;
 };
 
 
@@ -23,50 +24,34 @@ Lexer *createLexer()
 	newLexer->minusRule = loadMachine("minusTable.txt");
 	newLexer->multiplyRule = loadMachine("multiplyTable.txt");
 	newLexer->divideRule = loadMachine("divideTable.txt");
+	newLexer->spaceRule = loadMachine("spaceTable.txt");
 
 	return newLexer;
 }
 
-char *cleaningFromSpace(char *string)
-{
-	char *answer = new char[stringSize];
-
-	int i = 0;
-	int j = 0;
-	while (string[i] != '\0')
-	{
-		if ((string[i] != ' ') && (string[i] != '	'))
-		{
-			answer[j] = string[i];
-			j++;
-		}
-		i++;
-	}
-
-	answer[j] = '\0';
-	return answer;
-}
-
 char *analyzeString(Lexer *lexer, char *string)
 {
-	char *testingString = cleaningFromSpace(string);
 	char *answer = new char[stringSize];
 	answer[0] = '\0';
+
+	char *testingString = new char[stringSize];
+	testingString[0] = '\0';
+	strcpy(testingString, string);
 
 	char *temp = testingString;
 	while (temp[0] != '\0')
 	{
 		if (testString(lexer->numberRule, temp))
-			strcat(answer, "id");
+			strcat(answer, "id ");
 		else if (testString(lexer->plusRule, temp))
-			strcat(answer, " + ");
+			strcat(answer, "+ ");
 		else if (testString(lexer->minusRule, temp))
-			strcat(answer, " - ");
+			strcat(answer, "- ");
 		else if (testString(lexer->multiplyRule, temp))
-			strcat(answer, " * ");
+			strcat(answer, "* ");
 		else if (testString(lexer->divideRule, temp))
-			strcat(answer, " / ");
-		else
+			strcat(answer, "/ ");
+		else if (!testString(lexer->spaceRule, temp))
 		{
 			strcpy(answer, "");
 			delete[] testingString;
@@ -85,6 +70,7 @@ void deleteLexer(Lexer *&lexer)
 	deleteMachine(lexer->minusRule);
 	deleteMachine(lexer->multiplyRule);
 	deleteMachine(lexer->divideRule);
+	deleteMachine(lexer->spaceRule);
 
 	delete lexer;
 	lexer = nullptr;

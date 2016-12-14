@@ -12,7 +12,7 @@ int main()
 	cout << "Enter testing string: ";
 	char string[stringSize] = {'\0'};
 	cin.getline(string, stringSize);
-
+	
 	Lexer *lexer = createLexer();
 	char *temp = analyzeString(lexer, string);
 	deleteLexer(lexer);
