@@ -1,7 +1,11 @@
 #include "syntacticAnalysis.h"
 #include <string.h>
 
-
+/*
+E -> id F
+F -> T id F | '\0'
+T -> + | - | / | *
+*/
 
 bool ruleT(char *&string)
 {
