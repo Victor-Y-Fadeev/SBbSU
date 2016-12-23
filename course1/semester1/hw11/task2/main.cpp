@@ -13,7 +13,7 @@ int main()
 	char *string = new char[stringSize];
 	string[0] = '\0';
 	cin.getline(string, stringSize);
-	
+
 	Lexer *lexer = createLexer();
 	char *temp = analyzeString(lexer, string);
 	deleteLexer(lexer);
