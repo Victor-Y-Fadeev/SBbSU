@@ -24,8 +24,9 @@ public class List<DataType extends Comparable> {
     }
 
     public void remove(DataType value) {
-        if (isEmpty())
+        if (isEmpty()) {
             return;
+        }
 
         if (head.value.compareTo(value) == 0) {
             head = head.next;
@@ -54,8 +55,7 @@ public class List<DataType extends Comparable> {
         DataType value;
         Node next;
 
-        Node(DataType value, Node next){
-
+        Node(DataType value, Node next) {
             this.value = value;
             this.next = next;
         }
