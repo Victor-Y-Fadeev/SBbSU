@@ -2,59 +2,41 @@ package spbu.hw1.task1;
 
 
 public class Stack<DataType> {
-
-    private Node top;
+    private Node head;
 
     public Stack() {
-
-        top = null;
+        head = null;
     }
 
     public void push(DataType value) {
+        Node newNode = new Node(value, head);
 
-        Node newNode = new Node(value, top);
-
-        top = newNode;
+        head = newNode;
     }
 
     public DataType pop() {
-
-        if (emptyStack())
+        if (isEmpty())
             return null;
 
-        DataType value = top.getValue();
+        DataType value = head.value;
 
-        top = top.getNext();
+        head = head.next;
 
         return value;
     }
 
-    public boolean emptyStack() {
-
-        return (top == null);
+    public boolean isEmpty() {
+        return head == null;
     }
 
 
     private class Node {
+        DataType value;
+        Node next;
 
-        private DataType value;
-
-        private Node next;
-
-        public Node(DataType value, Node next){
-
+        Node(DataType value, Node next){
             this.value = value;
             this.next = next;
-        }
-
-        public DataType getValue() {
-
-            return value;
-        }
-
-        public Node getNext() {
-
-            return next;
         }
     }
 }
