@@ -2,84 +2,62 @@ package spbu.hw1.task2;
 
 
 public class List<DataType extends Comparable> {
-
-    private Node top;
+    private Node head;
 
     public List() {
-
-        top = null;
+        head = null;
     }
 
     public void add(DataType value) {
-
-        if ((emptyList()) || (top.getValue().compareTo(value) > 0)) {
-            top = new Node(value, top);
+        if ((isEmpty()) || (head.value.compareTo(value) > 0)) {
+            head = new Node(value, head);
             return;
         }
 
-        Node temp = top;
+        Node temp = head;
 
-        while ((temp.getNext() != null) && (temp.getNext().getValue().compareTo(value) < 0)) {
-            temp = temp.getNext();
+        while ((temp.next != null) && (temp.next.value.compareTo(value) < 0)) {
+            temp = temp.next;
         }
 
-        temp.changeNext(new Node(value, temp.getNext()));
+        temp.next = new Node(value, temp.next);
     }
 
     public void remove(DataType value) {
-
-        if (emptyList())
+        if (isEmpty())
             return;
 
-        if (top.getValue().compareTo(value) == 0) {
-            top = top.getNext();
-            return;
-        }
-
-        Node temp = top;
-
-        while ((temp.getNext() != null) && (temp.getNext().getValue().compareTo(value) != 0)) {
-            temp = temp.getNext();
-        }
-
-        if (temp.getNext() == null) {
+        if (head.value.compareTo(value) == 0) {
+            head = head.next;
             return;
         }
 
-        temp.changeNext(temp.getNext().getNext());
+        Node temp = head;
+
+        while ((temp.next != null) && (temp.next.value.compareTo(value) != 0)) {
+            temp = temp.next;
+        }
+
+        if (temp.next == null) {
+            return;
+        }
+
+        temp.next = temp.next.next;
     }
 
-    public boolean emptyList() {
-
-        return (top == null);
+    public boolean isEmpty() {
+        return head == null;
     }
 
 
     private class Node {
+        DataType value;
+        Node next;
 
-        private DataType value;
-
-        private Node next;
-
-        public Node(DataType value, Node next){
+        Node(DataType value, Node next){
 
             this.value = value;
             this.next = next;
-        }
-
-        public void changeNext(Node next){
-
-            this.next = next;
-        }
-
-        public DataType getValue() {
-
-            return value;
-        }
-
-        public Node getNext() {
-
-            return next;
         }
     }
 }
