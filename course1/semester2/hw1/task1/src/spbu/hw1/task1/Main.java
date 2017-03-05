@@ -4,8 +4,8 @@ package spbu.hw1.task1;
 public class Main {
     public static void main(String[] args) {
         Stack<Integer> testStack = new Stack<>();
-        Integer counter = 0;
         Integer testEmpty = 0;
+        int counter = 0;
 
 
         System.out.println("Put some elements...");
