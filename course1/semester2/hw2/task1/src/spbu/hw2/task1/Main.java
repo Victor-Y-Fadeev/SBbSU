@@ -14,8 +14,8 @@ public class Main {
     }
 
     private static void testSomeStack(Stack<Integer> testStack, String stackName) {
-        Integer counter = 0;
         Integer testEmpty = 0;
+        int counter = 0;
 
         System.out.print("Testing ");
         System.out.println(stackName);

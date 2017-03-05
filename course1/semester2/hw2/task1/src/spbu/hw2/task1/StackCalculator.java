@@ -19,29 +19,29 @@ public class StackCalculator {
 
             if (i < size) {
                 switch (expression.charAt(i)) {
-                    case '(':
-                        operators.push('(');
-                        break;
-                    case ')':
-                        lowPriority();
-                        operators.pop();
-                        break;
-                    case '+':
-                        lowPriority();
-                        operators.push('+');
-                        break;
-                    case '-':
-                        lowPriority();
-                        operators.push('-');
-                        break;
-                    case '*':
-                        highPriority();
-                        operators.push('*');
-                        break;
-                    case '/':
-                        highPriority();
-                        operators.push('/');
-                        break;
+                case '(':
+                    operators.push('(');
+                    break;
+                case ')':
+                    lowPriority();
+                    operators.pop();
+                    break;
+                case '+':
+                    lowPriority();
+                    operators.push('+');
+                    break;
+                case '-':
+                    lowPriority();
+                    operators.push('-');
+                    break;
+                case '*':
+                    highPriority();
+                    operators.push('*');
+                    break;
+                case '/':
+                    highPriority();
+                    operators.push('/');
+                    break;
                 }
             }
 
@@ -71,33 +71,33 @@ public class StackCalculator {
         return i;
     }
 
-   private void highPriority() {
-       Character temp = operators.pop();
+    private void highPriority() {
+        Character temp = operators.pop();
 
-       while ((temp != null) && (temp != '(') && (temp != '+') && (temp != '-')) {
-           int a = numbers.pop();
-           int b = numbers.pop();
-           int result = 0;
+        while ((temp != null) && (temp != '(') && (temp != '+') && (temp != '-')) {
+            int a = numbers.pop();
+            int b = numbers.pop();
+            int result = 0;
 
-           switch (temp) {
-               case '*':
-                   result = b * a;
-                   break;
-               case '/':
-                   result = b / a;
-                   break;
-           }
+            switch (temp) {
+            case '*':
+                result = b * a;
+                break;
+            case '/':
+                result = b / a;
+                break;
+            }
 
-           numbers.push(result);
-           temp = operators.pop();
-       }
+            numbers.push(result);
+            temp = operators.pop();
+        }
 
-       if ((temp != null) && ((temp == '(') || (temp == '+') || (temp == '-'))) {
-           operators.push('(');
-       }
-   }
+        if ((temp != null) && ((temp == '(') || (temp == '+') || (temp == '-'))) {
+            operators.push('(');
+        }
+    }
 
-   private void lowPriority() {
+    private void lowPriority() {
         Character temp = operators.pop();
 
         while ((temp != null) && (temp != '(')) {
@@ -106,18 +106,18 @@ public class StackCalculator {
             int result = 0;
 
             switch (temp) {
-                case '+':
-                    result = b + a;
-                    break;
-                case '-':
-                    result = b - a;
-                    break;
-                case '*':
-                    result = b * a;
-                    break;
-                case '/':
-                    result = b / a;
-                    break;
+            case '+':
+                result = b + a;
+                break;
+            case '-':
+                result = b - a;
+                break;
+            case '*':
+                result = b * a;
+                break;
+            case '/':
+                result = b / a;
+                break;
             }
 
             numbers.push(result);
