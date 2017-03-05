@@ -7,6 +7,10 @@ public class Main {
     public static void main(String[] args) {
         testSomeStack(new StackList<>(), "StackList");
         testSomeStack(new StackVector<>(), "StackVector");
+
+        StackCalculator calculator = new StackCalculator();
+        System.out.print("5 * (7 + 8) + 25 = ");
+        System.out.println(calculator.computing("5 * (7 + 8) + 25"));
     }
 
     private static void testSomeStack(Stack<Integer> testStack, String stackName) {
