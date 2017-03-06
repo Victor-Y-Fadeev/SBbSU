@@ -1,7 +1,5 @@
 package spbu.hw2.task1;
 
-import java.util.Vector;
-
 
 public class StackVector<DataType> implements Stack<DataType> {
     private Vector<DataType> vector;
@@ -18,9 +16,9 @@ public class StackVector<DataType> implements Stack<DataType> {
         if (isEmpty())
             return null;
 
-        DataType value = vector.lastElement();
+        DataType value = vector.last();
 
-        vector.remove(vector.size() - 1);
+        vector.remove();
 
         return value;
     }
