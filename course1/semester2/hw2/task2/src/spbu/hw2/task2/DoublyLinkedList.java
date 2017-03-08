@@ -62,11 +62,11 @@ public class DoublyLinkedList<DataType extends Comparable> implements List<DataT
 
 
     private class Node {
-        DataType value;
-        Node prev;
-        Node next;
+        public DataType value;
+        public Node prev;
+        public Node next;
 
-        Node(DataType value, Node prev, Node next) {
+        public Node(DataType value, Node prev, Node next) {
             this.value = value;
             this.prev = prev;
             this.next = next;
