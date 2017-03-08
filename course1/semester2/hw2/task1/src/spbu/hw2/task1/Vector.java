@@ -2,17 +2,17 @@ package spbu.hw2.task1;
 
 
 public class Vector<DataType> {
-    private final int initialSize = 10;
+    private final int INITIAL_SIZE = 10;
 
     private DataType array[];
     private int size;
     private int elements;
 
     public Vector() {
-        Object temp[] = new Object[initialSize];
+        Object temp[] = new Object[INITIAL_SIZE];
         array = (DataType[]) temp;
 
-        size = initialSize;
+        size = INITIAL_SIZE;
         elements = 0;
     }
 

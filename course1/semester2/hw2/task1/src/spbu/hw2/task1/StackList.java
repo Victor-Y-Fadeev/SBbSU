@@ -31,10 +31,10 @@ public class StackList<DataType> implements Stack<DataType> {
 
 
     private class Node {
-        DataType value;
-        Node next;
+        public DataType value;
+        public Node next;
 
-        Node(DataType value, Node next){
+        public Node(DataType value, Node next){
             this.value = value;
             this.next = next;
         }
