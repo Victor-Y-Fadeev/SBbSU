@@ -1,7 +1,7 @@
 package spbu.hw3.task2;
 
-
 import java.io.IOException;
+
 
 public abstract class SpiralConverter implements SpiralOutput {
     @Override

@@ -10,7 +10,5 @@ public class ConsoleOutput extends SpiralConverter {
             System.out.print(sequence[i]);
             System.out.print(" ");
         }
-
-        System.out.println("");
     }
 }

@@ -14,10 +14,9 @@ public class FileOutput extends SpiralConverter {
                 writer.write(" ");
             }
 
-            writer.write("\n");
             writer.flush();
-        } catch(IOException ex) {
-            System.out.println(ex.getMessage());
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

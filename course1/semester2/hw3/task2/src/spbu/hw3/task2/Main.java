@@ -6,19 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        int[][] matrix = new int[5][5];
-        for (int i = 0; i < 25; i++) {
-            matrix[i / 5][i % 5] = i;
-        }
-
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                matrix[i][j] = 5 * i + j;
-                System.out.print(5 * i + j);
-                System.out.print(" ");
-            }
-            System.out.println("");
-        }
+        int[][] matrix = inputMatrix();
 
         System.out.print("\nSelect output type (Console/File): ");
         Scanner in = new Scanner(System.in);
@@ -32,5 +20,21 @@ public class Main {
             SpiralOutput out = new ConsoleOutput();
             out.output(matrix);
         }
+    }
+
+    private static int[][] inputMatrix() {
+        System.out.print("Enter matrix size: ");
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[][] answer = new int[n][n];
+
+        System.out.print("Enter matrix: ");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                answer[i][j] = in.nextInt();
+            }
+        }
+
+        return answer;
     }
 }
