@@ -1,5 +1,6 @@
-package spbu.hw3.task1;
-
+import spbu.hw3.task1.InsertionSort;
+import spbu.hw3.task1.QuickSort;
+import spbu.hw3.task1.SortingAlgorithm;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
