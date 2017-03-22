@@ -1,18 +1,20 @@
 package spbu.hw4.task2;
 
 
-public class HashTable<DataType extends Comparable, Hasher extends HashFunction> {
+public class HashTable<DataType extends Comparable> {
     private static final int INITIAL_SIZE = 1024;
+    private static final float CRITICAL_LOAD_FACTOR = 5;
     private UniqueList<DataType>[] table;
+    private Hasher hasher;
     private int addedElements;
     private int maxListLenght;
     private int emptyCell;
     private int conflicts;
     private int size;
 
-    public HashTable() {
-        Object temp[] = new Object[INITIAL_SIZE];
-        table = (UniqueList<DataType>[]) temp;
+    public HashTable(Hasher hasher) {
+        table = (UniqueList<DataType>[]) new UniqueList[INITIAL_SIZE];
+        this.hasher = hasher;
 
         addedElements = 0;
         maxListLenght = 0;
@@ -22,12 +24,11 @@ public class HashTable<DataType extends Comparable, Hasher extends HashFunction>
     }
 
     public void add(DataType element) {
-        if (loadFactor() > 5) {
+        if (loadFactor() > CRITICAL_LOAD_FACTOR) {
             resize();
         }
 
-        Hasher hasher = (Hasher) new Object();
-        int hash = hasher.getHesh(element.toString()) % size;
+        int hash = hasher.getHash(element.toString()) % size;
 
         if (table[hash].isExists(element)) {
             return;
@@ -53,8 +54,7 @@ public class HashTable<DataType extends Comparable, Hasher extends HashFunction>
     }
 
     public void remove(DataType element) {
-        Hasher hasher = (Hasher) new Object();
-        int hash = hasher.getHesh(element.toString()) % size;
+        int hash = hasher.getHash(element.toString()) % size;
 
         if (!table[hash].isExists(element)) {
             return;
@@ -75,8 +75,7 @@ public class HashTable<DataType extends Comparable, Hasher extends HashFunction>
     }
 
     public boolean isExists(DataType element) {
-        Hasher hasher = (Hasher) new Object();
-        int hash = hasher.getHesh(element.toString()) % size;
+        int hash = hasher.getHash(element.toString()) % size;
 
         return table[hash].isExists(element);
     }
