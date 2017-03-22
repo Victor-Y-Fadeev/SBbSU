@@ -52,6 +52,35 @@ public class HashTable<DataType extends Comparable, Hasher extends HashFunction>
         }
     }
 
+    public void remove(DataType element) {
+        Hasher hasher = (Hasher) new Object();
+        int hash = hasher.getHesh(element.toString()) % size;
+
+        if (!table[hash].isExists(element)) {
+            return;
+        }
+
+        table[hash].remove(element);
+        addedElements--;
+
+        int listSize = table[hash].getSize();
+
+        if (listSize == 0) {
+            emptyCell++;
+        }
+
+        if (listSize == 1) {
+            conflicts--;
+        }
+    }
+
+    public boolean isExists(DataType element) {
+        Hasher hasher = (Hasher) new Object();
+        int hash = hasher.getHesh(element.toString()) % size;
+
+        return table[hash].isExists(element);
+    }
+
     public float loadFactor() {
         return (float)addedElements / size;
     }
