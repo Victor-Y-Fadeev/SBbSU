@@ -28,7 +28,14 @@ public class HashTable<DataType extends Comparable> {
             resize();
         }
 
-        int hash = hasher.getHash(element.toString()) % size;
+        int hash = hasher.getHash(element.toString(), size);
+
+        if (table[hash] == null) {
+            emptyCell--;
+            table[hash] = new UniqueList<>();
+            table[hash].add(element);
+            addedElements++;
+        }
 
         if (table[hash].isExists(element)) {
             return;
@@ -38,11 +45,6 @@ public class HashTable<DataType extends Comparable> {
         addedElements++;
 
         int listSize = table[hash].getSize();
-
-        if (listSize == 1) {
-            emptyCell--;
-            return;
-        }
 
         if (listSize == 2) {
             conflicts++;
@@ -54,9 +56,9 @@ public class HashTable<DataType extends Comparable> {
     }
 
     public void remove(DataType element) {
-        int hash = hasher.getHash(element.toString()) % size;
+        int hash = hasher.getHash(element.toString(), size);
 
-        if (!table[hash].isExists(element)) {
+        if ((table[hash] == null) || (!table[hash].isExists(element))) {
             return;
         }
 
@@ -67,6 +69,7 @@ public class HashTable<DataType extends Comparable> {
 
         if (listSize == 0) {
             emptyCell++;
+            table[hash] = null;
         }
 
         if (listSize == 1) {
@@ -75,12 +78,24 @@ public class HashTable<DataType extends Comparable> {
     }
 
     public boolean isExists(DataType element) {
-        int hash = hasher.getHash(element.toString()) % size;
+        int hash = hasher.getHash(element.toString(), size);
 
-        return table[hash].isExists(element);
+        return (table[hash] != null) && (table[hash].isExists(element));
     }
 
-    public float loadFactor() {
+    public String getStat() {
+        String statistics = "Size: " + size;
+
+        statistics += "\nLoad factor: " + loadFactor();
+        statistics += "\nConflicts: " + conflicts;
+        statistics += "\nEmpty Cell: " + emptyCell;
+        statistics += "\nMax conflict list: " + maxListLenght;
+        statistics += "\n";
+
+        return statistics;
+    }
+
+    private float loadFactor() {
         return (float)addedElements / size;
     }
 

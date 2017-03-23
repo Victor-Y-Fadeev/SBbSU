@@ -26,20 +26,39 @@ public class Main {
 
         num = 0;
         while (num != EXIT) {
+            menu();
 
             num = in.nextInt();
             switch (num) {
                 case ADD:
-                    hashTable.add(add());
+                    hashTable.add(getElement());
                     break;
-
-
-
+                case REMOVE:
+                    hashTable.remove(getElement());
+                    break;
+                case FIND:
+                    if (hashTable.isExists(getElement())) {
+                        System.out.println("Yes");
+                    } else {
+                        System.out.println("No");
+                    }
+                    break;
+                case STAT:
+                    System.out.println(hashTable.getStat());
+                    break;
             }
         }
     }
 
-    private static String add() {
+    private static void menu() {
+        System.out.println(ADD + ") Add element");
+        System.out.println(REMOVE + ") Remove element");
+        System.out.println(FIND + ") Find element");
+        System.out.println(STAT + ") Show statistics");
+        System.out.println(EXIT + ") Exit");
+    }
+
+    private static String getElement() {
         Scanner in = new Scanner(System.in);
 
         System.out.print("Enter string: ");
