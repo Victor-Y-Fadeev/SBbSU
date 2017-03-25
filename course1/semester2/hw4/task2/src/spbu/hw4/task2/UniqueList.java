@@ -65,21 +65,12 @@ public class UniqueList<DataType extends Comparable> {
             return false;
         }
 
-        if (head.value.compareTo(value) == 0) {
-            return true;
-        }
-
         Node temp = head;
-
-        while ((temp.next != null) && (temp.next.value.compareTo(value) != 0)) {
+        while ((temp != null) && (temp.value.compareTo(value) != 0)) {
             temp = temp.next;
         }
 
-        if (temp.next == null) {
-            return false;
-        }
-
-        return true;
+        return temp != null;
     }
 
     public DataType getFirst() {
