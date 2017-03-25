@@ -8,11 +8,10 @@ public class UniqueListTest {
     private final int OPERATION_REPEAT = 1024;
 
     @Test
-    public void testUniqueList() {
+    public void testAlreadyExistsException() {
         List<Integer> testList = new UniqueList<>();
         Random randomizer = new Random();
         int repeatAlreadyExistsException = 0;
-        int repeatNotFoundException = 0;
 
         for (int i = 0; i < OPERATION_REPEAT; i++) {
             int number = randomizer.nextInt();
@@ -24,16 +23,25 @@ public class UniqueListTest {
                 repeatAlreadyExistsException++;
             }
             testList.remove(number);
+        }
 
-            number = randomizer.nextInt();
+        Assert.assertTrue("Some Already Exists exception not happened", repeatAlreadyExistsException == OPERATION_REPEAT);
+    }
+
+    @Test
+    public void testNotFoundException() {
+        List<Integer> testList = new UniqueList<>();
+        Random randomizer = new Random();
+        int repeatNotFoundException = 0;
+
+        for (int i = 0; i < OPERATION_REPEAT; i++) {
             try {
-                testList.remove(number);
+                testList.remove(randomizer.nextInt());
             } catch (Exception e) {
                 repeatNotFoundException++;
             }
         }
 
-        Assert.assertTrue("Some Already Exists exception not happened", repeatAlreadyExistsException == OPERATION_REPEAT);
         Assert.assertTrue("Some Not Found exception not happened", repeatNotFoundException == OPERATION_REPEAT);
     }
 }
