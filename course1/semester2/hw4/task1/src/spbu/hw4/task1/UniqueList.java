@@ -8,50 +8,33 @@ public class UniqueList<DataType extends Comparable> extends SinglyLinkedList<Da
 
     @Override
     public void add(DataType value) {
-        if ((isEmpty()) || (head.value.compareTo(value) > 0)) {
-            head = new Node(value, head);
-            return;
-        }
-
-        if (head.value.compareTo(value) == 0) {
+        if (isExists(value)) {
             throw new ElementAlreadyExists();
         }
 
-        Node temp = head;
-
-        while ((temp.next != null) && (temp.next.value.compareTo(value) < 0)) {
-            temp = temp.next;
-        }
-
-        if ((temp.next != null) && (temp.next.value.compareTo(value) == 0)) {
-            throw new ElementAlreadyExists();
-        }
-
-        temp.next = new Node(value, temp.next);
+        super.add(value);
     }
 
     @Override
     public void remove(DataType value) {
-        if (isEmpty()) {
+        if (!isExists(value)) {
             throw new ElementNotFound();
         }
 
-        if (head.value.compareTo(value) == 0) {
-            head = head.next;
-            return;
+        super.remove(value);
+    }
+
+    public boolean isExists(DataType value) {
+        if (isEmpty()) {
+            return false;
         }
 
         Node temp = head;
-
-        while ((temp.next != null) && (temp.next.value.compareTo(value) != 0)) {
+        while ((temp != null) && (temp.value.compareTo(value) != 0)) {
             temp = temp.next;
         }
 
-        if (temp.next == null) {
-            throw new ElementNotFound();
-        }
-
-        temp.next = temp.next.next;
+        return temp != null;
     }
 
     public static class ElementAlreadyExists extends RuntimeException {
