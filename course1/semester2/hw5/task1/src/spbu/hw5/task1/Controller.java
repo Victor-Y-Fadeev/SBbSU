@@ -4,15 +4,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 
 public class Controller {
     @FXML
     private MenuButton menu;
     @FXML
-    private TextField firstValue;
+    private Spinner firstValue;
     @FXML
-    private TextField secondValue;
+    private Spinner secondValue;
     @FXML
     private TextField result;
 
@@ -26,14 +27,24 @@ public class Controller {
         count();
     }
 
+    public void clickSpinner(MouseEvent mouseEvent) {
+        Spinner spinner = (Spinner) mouseEvent.getSource();
+
+        if (spinner.getValueFactory() == null) {
+            spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 9));
+        }
+
+        count();
+    }
+
     private void count() {
-        if ((menu.getText().isEmpty()) || (firstValue.getText().isEmpty()) || (secondValue.getText().isEmpty())) {
+        if ((menu.getText().isEmpty()) || (firstValue.getValueFactory() == null) || (secondValue.getValueFactory() == null)) {
             result.setText("");
             return;
         }
 
-        int firstNumber = Integer.parseInt(firstValue.getText());
-        int secondNumber = Integer.parseInt(secondValue.getText());
+        int firstNumber = (Integer) firstValue.getValue();
+        int secondNumber = (Integer) secondValue.getValue();
 
         switch (menu.getText()) {
             case "+":

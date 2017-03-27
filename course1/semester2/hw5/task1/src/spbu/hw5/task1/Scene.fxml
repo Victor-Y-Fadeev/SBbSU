@@ -4,15 +4,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spbu.hw5.task1.Controller">
    <children>
-      <TextField fx:id="firstValue" minWidth="40.0" onKeyReleased="#changeValue" prefHeight="40.0" prefWidth="40.0">
+      <Spinner fx:id="firstValue" minHeight="40.0" minWidth="50.0" onMouseClicked="#clickSpinner" prefHeight="40.0" prefWidth="50.0">
          <HBox.margin>
             <Insets left="10.0" top="20.0" />
-         </HBox.margin></TextField>
+         </HBox.margin>
+      </Spinner>
       <MenuButton fx:id="menu" minWidth="50.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
         <items>
             <MenuItem mnemonicParsing="false" onAction="#changeOperation" text="+" />
@@ -24,10 +26,11 @@
             <Insets left="10.0" top="20.0" />
          </HBox.margin>
       </MenuButton>
-      <TextField fx:id="secondValue" minWidth="40.0" onKeyReleased="#changeValue" prefHeight="40.0" prefWidth="40.0">
+      <Spinner fx:id="secondValue" minHeight="40.0" minWidth="50.0" onMouseClicked="#clickSpinner" prefHeight="40.0" prefWidth="50.0">
          <HBox.margin>
             <Insets left="10.0" top="20.0" />
-         </HBox.margin></TextField>
+         </HBox.margin>
+      </Spinner>
       <Label minWidth="10.0" prefWidth="10.0" text="=">
          <HBox.margin>
             <Insets left="10.0" top="30.0" />
