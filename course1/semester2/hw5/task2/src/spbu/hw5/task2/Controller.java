@@ -12,10 +12,12 @@ public class Controller {
     @FXML
     private TextField display;
 
+    /** Create StackCalculator in our class. */
     public Controller() {
         calculator = new StackCalculator();
     }
 
+    /** Recount result value after button clicked. */
     public void clickButton(ActionEvent actionEvent) {
         Button button = (Button) actionEvent.getSource();
 

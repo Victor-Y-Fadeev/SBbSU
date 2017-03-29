@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
+/** The Main class. */
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{

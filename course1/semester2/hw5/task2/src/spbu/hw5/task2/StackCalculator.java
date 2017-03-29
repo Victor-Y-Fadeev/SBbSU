@@ -3,11 +3,16 @@ package spbu.hw5.task2;
 import java.util.Stack;
 
 
+/**
+ * Class for counts expressions.
+ * This class counts expressions from received tokens.
+ * */
 public class StackCalculator {
     private Stack<String> stack;
     private String output;
     private boolean isClickEqually;
 
+    /** Do start settings. */
     public StackCalculator() {
         stack = new Stack<>();
         output = new String("0");
@@ -15,10 +20,19 @@ public class StackCalculator {
         isClickEqually = true;
     }
 
+    /** Return string to output. */
     public String getOutput() {
         return output;
     }
 
+    /**
+     * Receive tokens for computing.
+     * List of of allowable tokens:
+     * "0".."9", "+", "-", "*", "/",
+     * "=", ",", ".", "C", "c", "<-".
+     *
+     * @param token Input token
+     *  */
     public void computing(String token) {
         char symbol = token.charAt(0);
 
