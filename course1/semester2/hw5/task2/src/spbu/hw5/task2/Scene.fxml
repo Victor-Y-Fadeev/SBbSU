@@ -8,13 +8,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spbu.hw5.task2.Controller">
    <children>
-      <TextField editable="false" minHeight="50.0" prefHeight="50.0">
+      <TextField fx:id="display" editable="false" minHeight="50.0" prefHeight="50.0" text="0">
          <VBox.margin>
             <Insets left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
+         <font>
+            <Font size="20.0" />
+         </font>
       </TextField>
       <GridPane minHeight="140.0" minWidth="180.0">
         <columnConstraints>
@@ -41,35 +45,35 @@
                 <RowConstraints vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="7">
+                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="7">
                      <GridPane.margin>
                         <Insets right="5.0" top="5.0" />
                      </GridPane.margin></Button>
-                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="8" GridPane.columnIndex="1">
+                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="8" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets right="5.0" top="5.0" />
                      </GridPane.margin></Button>
-                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="9" GridPane.columnIndex="2">
+                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="9" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets right="5.0" top="5.0" />
                      </GridPane.margin></Button>
-                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="/" GridPane.columnIndex="3">
+                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="/" GridPane.columnIndex="3">
                      <GridPane.margin>
                         <Insets right="5.0" top="5.0" />
                      </GridPane.margin></Button>
-                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="4" GridPane.rowIndex="1">
+                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="4" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="5.0" top="5.0" />
                      </GridPane.margin></Button>
-                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="5.0" top="5.0" />
                      </GridPane.margin></Button>
-                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="5.0" top="5.0" />
                      </GridPane.margin></Button>
-                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="*" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="*" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="5.0" top="5.0" />
                      </GridPane.margin></Button>
@@ -77,11 +81,11 @@
             </GridPane>
             <VBox GridPane.columnIndex="1">
                <children>
-                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="←">
+                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="←">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin></Button>
-                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="C">
+                  <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="C">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin></Button>
@@ -90,36 +94,36 @@
                <children>
                   <HBox>
                      <children>
-                        <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="1">
+                        <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="1">
                            <HBox.margin>
                               <Insets right="5.0" top="5.0" />
                            </HBox.margin></Button>
-                        <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="2">
+                        <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="2">
                            <HBox.margin>
                               <Insets right="5.0" top="5.0" />
                            </HBox.margin></Button>
-                        <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="3">
+                        <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="3">
                            <HBox.margin>
                               <Insets right="5.0" top="5.0" />
                            </HBox.margin></Button>
-                        <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="-">
+                        <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="-">
                            <HBox.margin>
                               <Insets right="5.0" top="5.0" />
                            </HBox.margin></Button>
                      </children></HBox>
                   <HBox>
                      <children>
-                        <Button minHeight="30.0" minWidth="69.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="138.0" text="0">
+                        <Button minHeight="30.0" minWidth="69.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="138.0" text="0">
                            <HBox.margin>
                               <Insets right="5.0" top="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text=",">
+                        <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text=",">
                            <HBox.margin>
                               <Insets right="5.0" top="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="64.0" text="+">
+                        <Button minHeight="30.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="60.0" prefWidth="64.0" text="+">
                            <HBox.margin>
                               <Insets right="5.0" top="5.0" />
                            </HBox.margin>
@@ -128,7 +132,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Button minHeight="65.0" minWidth="32.0" mnemonicParsing="false" prefHeight="130.0" prefWidth="64.0" text="=" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button minHeight="65.0" minWidth="32.0" mnemonicParsing="false" onAction="#clickButton" prefHeight="130.0" prefWidth="64.0" text="=" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets top="5.0" />
                </GridPane.margin></Button>
