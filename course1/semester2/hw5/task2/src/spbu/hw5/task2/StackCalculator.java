@@ -134,9 +134,12 @@ public class StackCalculator {
     }
 
     private void count() {
+        if (isOperation(stack.peek().charAt(0))) {
+            return;
+        }
+
         String secondValue = stack.pop();
         isClickEqually = true;
-
         if (stack.empty()) {
             stack.push(secondValue);
             return;
