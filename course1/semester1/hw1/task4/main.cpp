@@ -1,6 +1,6 @@
 #include <iostream>
 
-void main()
+int main()
 {
 	int mas[28] = {0};
 	

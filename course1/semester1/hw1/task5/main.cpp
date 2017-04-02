@@ -61,7 +61,7 @@ void testBrackets(Stack &stack, bool &check, char symbol, char begin, char end)
 	}	
 }
 
-void main()
+int main()
 {
 	Stack stack = {nullptr};
 	char string[256] = "";

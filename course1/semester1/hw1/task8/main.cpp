@@ -23,7 +23,7 @@ int factorialIteration(int factorial)
 	return result;
 }
 
-void main()
+int main()
 {
 	int factorial = 0;
 

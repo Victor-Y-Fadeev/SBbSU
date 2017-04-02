@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits.h>
 #include "dijkstra.h"
 
 using namespace std;

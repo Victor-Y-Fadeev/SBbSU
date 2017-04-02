@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int random()
+int randomizer()
 {
 	return rand() * rand() % 1000000001;
 }
@@ -64,7 +64,7 @@ int main()
 	int *values = new int[n];
 	for (int i = 0; i < n; i++)
 	{
-		values[i] = random();
+		values[i] = randomizer();
 	}
 	
 	qSort(values, 0, n - 1);
@@ -72,7 +72,7 @@ int main()
 	int found = 0;
 	for (int i = 0; i < k; i++)
 	{
-		found += search(values, 0, n - 1, random());
+		found += search(values, 0, n - 1, randomizer());
 	}
 
 	cout << found << " elements found" << endl;
