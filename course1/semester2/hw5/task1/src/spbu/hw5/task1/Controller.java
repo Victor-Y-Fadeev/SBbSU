@@ -44,7 +44,7 @@ public class Controller implements Initializable {
     }
 
     private void setResult() {
-        if (menu.getText() == "") {
+        if (menu.getText().compareTo("") == 0) {
             return;
         }
 
