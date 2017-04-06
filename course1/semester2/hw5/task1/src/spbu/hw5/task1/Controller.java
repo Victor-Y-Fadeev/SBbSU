@@ -44,14 +44,14 @@ public class Controller implements Initializable {
     }
 
     private void setResult() {
-        if (menu.getText().compareTo("") == 0) {
+        if (menu.getText().equals("")) {
             return;
         }
 
         int firstNumber = (Integer) firstValue.getValue();
         int secondNumber = (Integer) secondValue.getValue();
 
-        if ((menu.getText().compareTo("/") == 0) && (secondNumber == 0)) {
+        if ((menu.getText().equals("/")) && (secondNumber == 0)) {
             result.setText("");
             return;
         }
