@@ -1,13 +1,16 @@
+import spbu.test1.task1.PriorityQueue;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import spbu.test1.task1.PriorityQueue;
 
+/** Test class for PriorityQueue. */
 public class PriorityQueueTest {
+    /** Test creation PriorityQueue. */
     @Test
     public void testPriorityQueueCreation() {
         PriorityQueue<Integer> test = new PriorityQueue<>();
     }
 
+    /** Test PriorityQueue<Integer>. */
     @Test
     public void testIntegerPriorityQueue() {
         PriorityQueue<Integer> test = new PriorityQueue<>();
@@ -25,6 +28,7 @@ public class PriorityQueueTest {
         assertTrue("Error in PriorityQueue<Integer>", test.dequeue().equals(0));
     }
 
+    /** Test PriorityQueue<String>. */
     @Test
     public void testStringPriorityQueue() {
         PriorityQueue<String> test = new PriorityQueue<>();
@@ -42,12 +46,14 @@ public class PriorityQueueTest {
         assertTrue("Error in PriorityQueue<Integer>", test.dequeue().equals("0"));
     }
 
+    /** Test isEmpty() function. */
     @Test
     public void testPriorityQueueIsEmpty() {
         PriorityQueue<Integer> test = new PriorityQueue<>();
         assertTrue("Error in isEmpty function!", test.isEmpty());
     }
 
+    /** Test dequeue() function exception. */
     @Test(expected = PriorityQueue.QueueIsEmpty.class)
     public void testPriorityQueueException() {
         PriorityQueue<Integer> test = new PriorityQueue<>();
