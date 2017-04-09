@@ -1,0 +1,10 @@
+language: c++ java
+
+install:
+    - sudo ./installScript.sh
+
+script:
+    - ./startScript.sh
+
+notifications:
+    email: false
