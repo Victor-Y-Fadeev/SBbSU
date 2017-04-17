@@ -4,6 +4,7 @@ package spbu.hw6.task1;
 public class Number implements Operand {
     private int number;
 
+
     public Number(int number) {
         this.number=number;
     }

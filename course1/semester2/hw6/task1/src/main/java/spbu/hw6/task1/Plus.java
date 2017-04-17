@@ -2,10 +2,8 @@ package spbu.hw6.task1;
 
 
 public class Plus extends Operator implements Operand {
-    public Plus(Operand left, Operand right) {
+    public Plus() {
         operation = '+';
-        this.left = left;
-        this.right = right;
     }
 
     @Override

@@ -2,10 +2,8 @@ package spbu.hw6.task1;
 
 
 public class Divide extends Operator implements Operand {
-    public Divide(Operand left, Operand right) {
+    public Divide() {
         operation = '/';
-        this.left = left;
-        this.right = right;
     }
 
     @Override

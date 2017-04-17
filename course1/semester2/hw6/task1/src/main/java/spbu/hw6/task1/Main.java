@@ -4,14 +4,10 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        //System.out.println("Maven!");
+        Tree tree = new Tree("input.txt");
 
-        try(FileReader reader = new FileReader("input.txt")) {
-            BufferedReader in = new BufferedReader(reader);
-            //answer = in.readLine();
-            System.out.println(in.readLine());
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
+        System.out.print(tree.output());
+        System.out.print(" = ");
+        System.out.println(tree.calculate());
     }
 }
