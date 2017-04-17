@@ -2,11 +2,15 @@ package spbu.hw6.task1;
 
 import java.io.*;
 
-
+/** Parse tree class. */
 public class Tree {
     private Operator root;
 
-
+    /**
+     * Load tree from file.
+     *
+     * @param input File name
+     * */
     public Tree(String input) {
         String expression = null;
 
@@ -20,10 +24,12 @@ public class Tree {
         root = getRoot(expression);
     }
 
+    /** Get arithmetic expression. */
     public String output() {
         return root.output();
     }
 
+    /** Get result of calculating. */
     public int calculate() {
         return root.calculate();
     }
@@ -51,7 +57,7 @@ public class Tree {
                 operator = new Multiply();
                 break;
             case '/':
-                root = new Divide();
+                operator = new Divide();
                 break;
         }
         i[0] += 2;

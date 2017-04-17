@@ -1,6 +1,6 @@
 package spbu.hw6.task1;
 
-
+/** Number operand class. */
 public class Number implements Operand {
     private int number;
 
