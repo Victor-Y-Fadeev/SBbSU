@@ -8,4 +8,8 @@ public class Main {
 
         System.out.println(code.output());
     }
+
+    private class A {
+
+    }
 }
