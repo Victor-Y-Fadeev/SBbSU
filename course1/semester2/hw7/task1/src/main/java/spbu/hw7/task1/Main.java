@@ -4,12 +4,8 @@ package spbu.hw7.task1;
 public class Main {
     /** Main method. */
     public static void main(String[] args) {
-        Code code = new Code(ExampleClass.class);
+        Code code = new Code();
 
-        System.out.println(code.output());
-    }
-
-    private class A {
-
+        System.out.println(code.describeClass(Code.class));
     }
 }

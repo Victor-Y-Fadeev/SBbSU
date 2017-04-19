@@ -4,23 +4,22 @@ import java.lang.reflect.*;
 
 /** Get code of class. */
 public class Code {
-    private Class clazz;
-
-    public Code(Class clazz) {
-        this.clazz = clazz;
-    }
-
-    public String output() {
+    /**
+     * Get class specification.
+     *
+     * @return  Result of scanning
+     * */
+    public String describeClass(Class clazz) {
         return getClassSpecification(clazz, "");
     }
 
-    public String getClassSpecification(Class clazz, String tab) {
+    private String getClassSpecification(Class clazz, String tab) {
         String result = tab + getClassSignature(clazz) + "{\n";
         boolean indent = false;
 
         Field[] fields = clazz.getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
-            if (!fields[i].getName().equals("this$0")) {
+            if (!isNumber(fields[i].getName().replace("this$", ""))) {
                 result += tab + "    " + getFieldSignature(clazz, fields[i]) + "\n";
                 indent = true;
             }
@@ -44,6 +43,13 @@ public class Code {
             indent = true;
         }
 
+        Class[] classes = clazz.getDeclaredClasses();
+        if (indent && (classes.length != 0)) {
+            result += "\n";
+        }
+        for (int i = 0; i < classes.length; i++) {
+            result += getClassSpecification(classes[i], tab + "    ");
+        }
 
         result += tab + "}\n";
         return result;
@@ -95,7 +101,7 @@ public class Code {
         String result = Modifier.toString(constructor.getModifiers()) + " ";
 
         result += clazz.getSimpleName() + "(";
-
+        result += getParameters(constructor.getParameters());
         result += ");";
 
         return result;
@@ -110,17 +116,32 @@ public class Code {
 
         result += method.getReturnType().getSimpleName() + " ";
         result += method.getName() + "(";
-
-        if (method.getParameters().length != 0) {
-            Parameter[] parameters = method.getParameters();
-            result += parameters[0].getType().getSimpleName() + " " + parameters[0].getName();
-
-            for (int i = 1; i < parameters.length; i++) {
-                result += ", " + parameters[i].getType().getSimpleName() + " " + parameters[i].getName();
-            }
-        }
+        result += getParameters(method.getParameters());
         result += ");";
 
         return result;
+    }
+
+    private String getParameters(Parameter[] parameters) {
+        if (parameters.length == 0) {
+            return "";
+        }
+
+        String result = parameters[0].getType().getSimpleName() + " " + parameters[0].getName();
+        for (int i = 1; i < parameters.length; i++) {
+            result += ", " + parameters[i].getType().getSimpleName() + " " + parameters[i].getName();
+        }
+
+        return result;
+    }
+
+    private boolean isNumber(String string) {
+        try {
+            Integer.parseInt(string);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
     }
 }
