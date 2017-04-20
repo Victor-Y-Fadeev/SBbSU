@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if ! [[ -z `find -name pom.xml` ]] ; then
+    exit 0
+fi
+
+
 num=$1
 srcFolder="src"
 testFolder="test"
