@@ -10,7 +10,11 @@ public class TicTacToe {
     }
 
     /** To move the game. */
-    public String toMove(int row, int column) {
+    public String toMove(String text) {
+        if (!text.equals("")) {
+            return text;
+        }
+
         isMoveX = !isMoveX;
 
         if (!isMoveX) {
