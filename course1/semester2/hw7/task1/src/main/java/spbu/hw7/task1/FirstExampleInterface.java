@@ -1,7 +1,6 @@
 package spbu.hw7.task1;
 
-
 public interface FirstExampleInterface {
-    public final int H = 0;
-    public char t();
+    public final int INTERFACE_FINAL_INT = 0;
+    public char charFunction();
 }

@@ -10,129 +10,151 @@ public class Code {
      * @return  Result of scanning
      * */
     public String describeClass(Class clazz) {
-        return getClassSpecification(clazz, "");
+        StringBuilder builder = new StringBuilder();
+
+        getClassSpecification(builder, clazz, "");
+
+        return builder.toString();
     }
 
-    private String getClassSpecification(Class clazz, String tab) {
-        String result = tab + getClassSignature(clazz) + "{\n";
+
+    private void getClassSpecification(StringBuilder builder, Class clazz, String tab) {
         boolean indent = false;
+
+        builder.append(tab);
+        getClassSignature(builder, clazz);
+        builder.append("{\n");
 
         Field[] fields = clazz.getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             if (!isNumber(fields[i].getName().replace("this$", ""))) {
-                result += tab + "    " + getFieldSignature(clazz, fields[i]) + "\n";
+                builder.append(tab);
+                builder.append("    ");
+                getFieldSignature(builder, clazz, fields[i]);
+                builder.append("\n");
                 indent = true;
             }
         }
 
         Constructor[] constructors = clazz.getDeclaredConstructors();
-        if (indent && (constructors.length != 0)) {
-            result += "\n";
-        }
+        checkBlock(builder, indent, constructors.length);
         for (int i = 0; i < constructors.length; i++) {
-            result += tab + "    " + getConstructorSignature(clazz, constructors[i]) + "\n";
+            builder.append(tab);
+            builder.append("    ");
+            getConstructorSignature(builder, clazz, constructors[i]);
+            builder.append("\n");
             indent = true;
         }
 
         Method[] methods = clazz.getDeclaredMethods();
-        if (indent && (methods.length != 0)) {
-            result += "\n";
-        }
+        checkBlock(builder, indent, methods.length);
         for (int i = 0; i < methods.length; i++) {
-            result += tab + "    " + getMethodSignature(clazz, methods[i]) + "\n";
+            builder.append(tab);
+            builder.append("    ");
+            getMethodSignature(builder, clazz, methods[i]);
+            builder.append("\n");
             indent = true;
         }
 
         Class[] classes = clazz.getDeclaredClasses();
-        if (indent && (classes.length != 0)) {
-            result += "\n";
-        }
+        checkBlock(builder, indent, classes.length);
         for (int i = 0; i < classes.length; i++) {
-            result += getClassSpecification(classes[i], tab + "    ");
+            getClassSpecification(builder, classes[i], tab + "    ");
         }
 
-        result += tab + "}\n";
-        return result;
+        builder.append(tab);
+        builder.append("}\n");
     }
 
-    private String getClassSignature(Class clazz) {
-        String result = Modifier.toString(clazz.getModifiers()) + " ";
+    private void getClassSignature(StringBuilder builder, Class clazz) {
+        String modifiers = Modifier.toString(clazz.getModifiers()) + " ";
 
         if (clazz.isInterface()) {
-            result = result.replace("abstract ", "");
+            builder.append(modifiers.replace("abstract ", ""));
         } else {
-            result += "class ";
+            builder.append(modifiers);
+            builder.append("class ");
         }
 
-        result += clazz.getSimpleName() + " ";
+        builder.append(clazz.getSimpleName());
+        builder.append(" ");
 
         if ((clazz.getSuperclass() != null) && !clazz.getSuperclass().equals(Object.class)) {
-            result += "extends " + clazz.getSuperclass().getSimpleName() + " ";
+            builder.append("extends ");
+            builder.append(clazz.getSuperclass().getSimpleName());
+            builder.append(" ");
         }
 
         if (clazz.getInterfaces().length != 0) {
             Class[] interfaces = clazz.getInterfaces();
-            result += "implements " + interfaces[0].getSimpleName();
+            builder.append("implements ");
+            builder.append(interfaces[0].getSimpleName());
 
             for (int i = 1; i < interfaces.length; i++) {
-                result += ", " + interfaces[i].getSimpleName();
+                builder.append(", ");
+                builder.append(interfaces[i].getSimpleName());
             }
 
-            result += " ";
+            builder.append(" ");
         }
-
-        return result;
     }
 
-    private String getFieldSignature(Class clazz, Field field) {
-        String result = Modifier.toString(field.getModifiers()) + " ";
+    private void getFieldSignature(StringBuilder builder, Class clazz, Field field) {
+        String modifiers = Modifier.toString(field.getModifiers()) + " ";
 
         if (clazz.isInterface()) {
-            result = result.replace("static ", "");
+            builder.append(modifiers.replace("static ", ""));
+        } else {
+            builder.append(modifiers);
         }
 
-        result += field.getType().getSimpleName() + " ";
-        result += field.getName() + ";";
-
-        return result;
+        builder.append(field.getType().getSimpleName());
+        builder.append(" ");
+        builder.append(field.getName());
+        builder.append(";");
     }
 
-    private String getConstructorSignature(Class clazz, Constructor constructor) {
-        String result = Modifier.toString(constructor.getModifiers()) + " ";
-
-        result += clazz.getSimpleName() + "(";
-        result += getParameters(constructor.getParameters());
-        result += ");";
-
-        return result;
+    private void getConstructorSignature(StringBuilder builder, Class clazz, Constructor constructor) {
+        builder.append(Modifier.toString(constructor.getModifiers()));
+        builder.append(" ");
+        builder.append(clazz.getSimpleName());
+        builder.append("(");
+        getParameters(builder, constructor.getParameters());
+        builder.append(");");
     }
 
-    private String getMethodSignature(Class clazz, Method method) {
-        String result = Modifier.toString(method.getModifiers()) + " ";
+    private void getMethodSignature(StringBuilder builder, Class clazz, Method method) {
+        String modifiers = Modifier.toString(method.getModifiers()) + " ";
 
         if (clazz.isInterface()) {
-            result = result.replace("abstract ", "");
+            builder.append(modifiers.replace("abstract ", ""));
+        } else {
+            builder.append(modifiers);
         }
 
-        result += method.getReturnType().getSimpleName() + " ";
-        result += method.getName() + "(";
-        result += getParameters(method.getParameters());
-        result += ");";
-
-        return result;
+        builder.append(method.getReturnType().getSimpleName());
+        builder.append(" ");
+        builder.append(method.getName());
+        builder.append("(");
+        getParameters(builder, method.getParameters());
+        builder.append(");");
     }
 
-    private String getParameters(Parameter[] parameters) {
+    private void getParameters(StringBuilder builder, Parameter[] parameters) {
         if (parameters.length == 0) {
-            return "";
+            return;
         }
 
-        String result = parameters[0].getType().getSimpleName() + " " + parameters[0].getName();
+        builder.append(parameters[0].getType().getSimpleName());
+        builder.append(" ");
+        builder.append(parameters[0].getName());
+
         for (int i = 1; i < parameters.length; i++) {
-            result += ", " + parameters[i].getType().getSimpleName() + " " + parameters[i].getName();
+            builder.append(", ");
+            builder.append(parameters[i].getType().getSimpleName());
+            builder.append(" ");
+            builder.append(parameters[i].getName());
         }
-
-        return result;
     }
 
     private boolean isNumber(String string) {
@@ -143,5 +165,11 @@ public class Code {
         }
 
         return true;
+    }
+
+    private void checkBlock(StringBuilder builder, boolean indent, int length) {
+        if (indent && (length != 0)) {
+            builder.append("\n");
+        }
     }
 }

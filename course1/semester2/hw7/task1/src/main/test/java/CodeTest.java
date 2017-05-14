@@ -20,13 +20,14 @@ public class CodeTest {
         actual = actual.replace("    public Code();\n", "");
 
         actual = actual.replace("    public String describeClass(Class arg0);\n", "");
-        actual = actual.replace("    private String getClassSpecification(Class arg0, String arg1);\n", "");
-        actual = actual.replace("    private String getClassSignature(Class arg0);\n", "");
-        actual = actual.replace("    private String getFieldSignature(Class arg0, Field arg1);\n", "");
-        actual = actual.replace("    private String getConstructorSignature(Class arg0, Constructor arg1);\n", "");
-        actual = actual.replace("    private String getMethodSignature(Class arg0, Method arg1);\n", "");
-        actual = actual.replace("    private String getParameters(Parameter[] arg0);\n", "");
+        actual = actual.replace("    private void getClassSpecification(StringBuilder arg0, Class arg1, String arg2);\n", "");
+        actual = actual.replace("    private void getClassSignature(StringBuilder arg0, Class arg1);\n", "");
+        actual = actual.replace("    private void getFieldSignature(StringBuilder arg0, Class arg1, Field arg2);\n", "");
+        actual = actual.replace("    private void getConstructorSignature(StringBuilder arg0, Class arg1, Constructor arg2);\n", "");
+        actual = actual.replace("    private void getMethodSignature(StringBuilder arg0, Class arg1, Method arg2);\n", "");
+        actual = actual.replace("    private void getParameters(StringBuilder arg0, Parameter[] arg1);\n", "");
         actual = actual.replace("    private boolean isNumber(String arg0);\n", "");
+        actual = actual.replace("    private void checkBlock(StringBuilder arg0, boolean arg1, int arg2);\n", "");
         actual = actual.replace("}\n", "");
 
         actual = actual.replace(" ", "");
@@ -117,6 +118,7 @@ public class CodeTest {
     public void testSecondExampleInterface() {
         Code code = new Code();
         String actual = code.describeClass(SecondExampleInterface.class);
+        System.out.println(actual);
 
         actual = actual.replace("public interface SecondExampleInterface {\n", "");
         actual = actual.replace("    public int interfaceIntFunction(float arg0);\n", "");
