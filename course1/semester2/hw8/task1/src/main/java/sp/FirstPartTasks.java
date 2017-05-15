@@ -1,8 +1,10 @@
 package sp;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -12,22 +14,22 @@ public final class FirstPartTasks {
 
     // Список названий альбомов
     public static List<String> allNames(Stream<Album> albums) {
-        throw new UnsupportedOperationException();
+        return albums.map((s) -> s.getName()).collect(Collectors.toList());
     }
 
     // Список названий альбомов, отсортированный лексикографически по названию
     public static List<String> allNamesSorted(Stream<Album> albums) {
-        throw new UnsupportedOperationException();
+        return albums.map((s) -> s.getName()).sorted().collect(Collectors.toList());
     }
 
     // Список треков, отсортированный лексикографически по названию, включающий все треки альбомов из 'albums'
     public static List<String> allTracksSorted(Stream<Album> albums) {
-        throw new UnsupportedOperationException();
+        return albums.flatMap((s) -> s.getTracks().stream()).map((s) -> s.getName()).sorted().collect(Collectors.toList());
     }
 
     // Список альбомов, в которых есть хотя бы один трек с рейтингом более 95, отсортированный по названию
-    public static List<Album> sortedFavorites(Stream<Album> s) {
-        throw new UnsupportedOperationException();
+    public static List<Album> sortedFavorites(Stream<Album> albums) {
+        return albums.filter((s) -> s.getTracks().stream().filter((t) -> t.getRating() > 95).count() > 0).sorted((s1, s2) -> s1.getName().compareTo(s2.getName())).collect(Collectors.toList());
     }
 
     // Сгруппировать альбомы по артистам
