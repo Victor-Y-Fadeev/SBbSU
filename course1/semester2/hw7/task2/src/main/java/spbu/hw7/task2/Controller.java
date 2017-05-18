@@ -13,10 +13,20 @@ public class Controller {
         game = new TicTacToe();
     }
 
-    /** To move the game. */
+    /** Make a game move. */
     public void clickButton(ActionEvent actionEvent) {
         Button button = (Button) actionEvent.getSource();
 
-        button.setText(game.toMove(button.getText()));
+        Integer rowIndex = GridPane.getRowIndex(button);
+        Integer columnIndex = GridPane.getColumnIndex(button);
+
+        if (rowIndex == null) {
+            rowIndex = 0;
+        }
+        if (columnIndex == null) {
+            columnIndex = 0;
+        }
+
+        button.setText(game.toMove(rowIndex, columnIndex));
     }
 }

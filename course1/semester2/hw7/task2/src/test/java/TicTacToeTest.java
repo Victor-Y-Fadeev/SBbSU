@@ -15,8 +15,8 @@ public class TicTacToeTest {
     public void testToMove() {
         TicTacToe game = new TicTacToe();
 
-        assertEquals("Error with toMove() function!", "X", game.toMove(""));
-        assertEquals("Error with toMove() function!", "O", game.toMove(""));
+        assertEquals("Error with toMove() function!", "X", game.toMove(0, 0));
+        assertEquals("Error with toMove() function!", "O", game.toMove(0, 1));
     }
 
     /** Test of incorrect tic-tac-toe move. */
@@ -24,7 +24,7 @@ public class TicTacToeTest {
     public void testIncorrectToMove() {
         TicTacToe game = new TicTacToe();
 
-        assertEquals("Error in toMove(), incorrect output!", "X", game.toMove("X"));
-        assertEquals("Error with toMove(), incorrect output!", "X", game.toMove("X"));
+        assertEquals("Error in toMove(), incorrect output!", "X", game.toMove(0, 0));
+        assertEquals("Error with toMove(), incorrect output!", "X", game.toMove(0 , 0));
     }
 }
