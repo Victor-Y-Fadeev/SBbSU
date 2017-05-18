@@ -15,43 +15,42 @@ public class CodeTest {
     public void testCodeClass() {
         Code code = new Code();
         String actual = code.describeClass(Code.class);
+        String[] expected = new String[]{
+                "public class Code {\n",
+                "    public Code();\n",
 
-        actual = actual.replace("public class Code {\n", "");
-        actual = actual.replace("    public Code();\n", "");
+                "    public String describeClass(Class arg0);\n",
+                "    private void getClassSpecification(StringBuilder arg0, Class arg1, String arg2);\n",
+                "    private void getClassSignature(StringBuilder arg0, Class arg1);\n",
+                "    private void getFieldSignature(StringBuilder arg0, Class arg1, Field arg2);\n",
+                "    private void getConstructorSignature(StringBuilder arg0, Class arg1, Constructor arg2);\n",
+                "    private void getMethodSignature(StringBuilder arg0, Class arg1, Method arg2);\n",
+                "    private void getParameters(StringBuilder arg0, Parameter[] arg1);\n",
+                "    private boolean isNumber(String arg0);\n",
+                "    private void checkBlock(StringBuilder arg0, boolean arg1, int arg2);\n",
+                "}\n"
+        };
 
-        actual = actual.replace("    public String describeClass(Class arg0);\n", "");
-        actual = actual.replace("    private void getClassSpecification(StringBuilder arg0, Class arg1, String arg2);\n", "");
-        actual = actual.replace("    private void getClassSignature(StringBuilder arg0, Class arg1);\n", "");
-        actual = actual.replace("    private void getFieldSignature(StringBuilder arg0, Class arg1, Field arg2);\n", "");
-        actual = actual.replace("    private void getConstructorSignature(StringBuilder arg0, Class arg1, Constructor arg2);\n", "");
-        actual = actual.replace("    private void getMethodSignature(StringBuilder arg0, Class arg1, Method arg2);\n", "");
-        actual = actual.replace("    private void getParameters(StringBuilder arg0, Parameter[] arg1);\n", "");
-        actual = actual.replace("    private boolean isNumber(String arg0);\n", "");
-        actual = actual.replace("    private void checkBlock(StringBuilder arg0, boolean arg1, int arg2);\n", "");
-        actual = actual.replace("}\n", "");
-
-        actual = actual.replace(" ", "");
-        actual = actual.replace("\n", "");
-        assertEquals("Incorrect description of Code()", "", actual);
+        assertReplacementStrings("Incorrect description of Code()", expected, actual);
     }
+
 
     /** Test ExampleSuperClass class. */
     @Test
     public void testExampleSuperClass() {
         Code code = new Code();
         String actual = code.describeClass(ExampleSuperClass.class);
+        String[] expected = new String[]{
+                "public class ExampleSuperClass {\n",
+                "    public ExampleSuperClass();\n",
 
-        actual = actual.replace("public class ExampleSuperClass {\n", "");
-        actual = actual.replace("    public ExampleSuperClass();\n", "");
+                "    public String publicString();\n",
+                "    protected void protectedVoid();\n",
+                "    private void privateVoid();\n",
+                "}\n"
+        };
 
-        actual = actual.replace("    public String publicString();\n", "");
-        actual = actual.replace("    protected void protectedVoid();\n", "");
-        actual = actual.replace("    private void privateVoid();\n", "");
-        actual = actual.replace("}\n", "");
-
-        actual = actual.replace(" ", "");
-        actual = actual.replace("\n", "");
-        assertEquals("Incorrect description of ExampleSuperClass()", "", actual);
+        assertReplacementStrings("Incorrect description of ExampleSuperClass()", expected, actual);
     }
 
     /** Test ExampleClass class. */
@@ -59,41 +58,39 @@ public class CodeTest {
     public void testExampleClass() {
         Code code = new Code();
         String actual = code.describeClass(ExampleClass.class);
+        String[] expected = new String[]{
+                "public abstract class ExampleClass extends ExampleSuperClass implements FirstExampleInterface, SecondExampleInterface {\n",
+                "    public String stringField;\n",
+                "    protected Float floatField;\n",
+                "    private final String FINAL_STRING;\n",
 
-        actual = actual.replace("public abstract class ExampleClass extends ExampleSuperClass implements FirstExampleInterface, SecondExampleInterface {\n", "");
-        actual = actual.replace("    public String stringField;\n", "");
-        actual = actual.replace("    protected Float floatField;\n", "");
-        actual = actual.replace("    private final String FINAL_STRING;\n", "");
+                "    public ExampleClass(Float arg0);\n",
+                "    protected ExampleClass();\n",
 
-        actual = actual.replace("    public ExampleClass(Float arg0);\n", "");
-        actual = actual.replace("    protected ExampleClass();\n", "");
+                "    public char charFunction();\n",
+                "    protected abstract String toDoSomething(String arg0, int arg1);\n",
 
-        actual = actual.replace("    public char charFunction();\n", "");
-        actual = actual.replace("    protected abstract String toDoSomething(String arg0, int arg1);\n", "");
+                "    private class OtherNode {\n",
+                "        private int firstIntField;\n",
+                "        private int secondIntField;\n",
+                "        private final int FINAL_INT;\n",
 
-        actual = actual.replace("    private class Node {\n", "");
-        actual = actual.replace("        public int intField;\n", "");
+                "        private OtherNode(ExampleClass arg0);\n",
 
-        actual = actual.replace("        public Node(ExampleClass arg0);\n", "");
+                "        private class EnclosedClass {\n",
+                "            private EnclosedClass(OtherNode arg0);\n",
+                "        }\n",
+                "    }\n",
+                "    private class Node {\n",
+                "        public int intField;\n",
 
-        actual = actual.replace("        public void setIntField(int arg0);\n", "");
-        actual = actual.replace("    }\n", "");
-        actual = actual.replace("    private class OtherNode {\n", "");
-        actual = actual.replace("        private int firstIntField;\n", "");
-        actual = actual.replace("        private int secondIntField;\n", "");
-        actual = actual.replace("        private final int FINAL_INT;\n", "");
+                "        public Node(ExampleClass arg0);\n",
 
-        actual = actual.replace("        private OtherNode(ExampleClass arg0);\n", "");
+                "        public void setIntField(int arg0);\n",
+                "}\n"
+        };
 
-        actual = actual.replace("        private class EnclosedClass {\n", "");
-        actual = actual.replace("            private EnclosedClass(OtherNode arg0);\n", "");
-        actual = actual.replace("        }\n", "");
-        actual = actual.replace("    }\n", "");
-        actual = actual.replace("}\n", "");
-
-        actual = actual.replace(" ", "");
-        actual = actual.replace("\n", "");
-        assertEquals("Incorrect description of ExampleClass()", "", actual);
+        assertReplacementStrings("Incorrect description of ExampleClass()", expected, actual);
     }
 
     /** Test FirstExampleInterface interface. */
@@ -101,16 +98,15 @@ public class CodeTest {
     public void testFirstExampleInterface() {
         Code code = new Code();
         String actual = code.describeClass(FirstExampleInterface.class);
+        String[] expected = new String[]{
+                "public interface FirstExampleInterface {\n",
+                "    public final int INTERFACE_FINAL_INT;\n",
 
-        actual = actual.replace("public interface FirstExampleInterface {\n", "");
-        actual = actual.replace("    public final int INTERFACE_FINAL_INT;\n", "");
+                "    public char charFunction();\n",
+                "}\n"
+        };
 
-        actual = actual.replace("    public char charFunction();\n", "");
-        actual = actual.replace("}\n", "");
-
-        actual = actual.replace(" ", "");
-        actual = actual.replace("\n", "");
-        assertEquals("Incorrect description of FirstExampleInterface()", "", actual);
+        assertReplacementStrings("Incorrect description of FirstExampleInterface()", expected, actual);
     }
 
     /** Test SecondExampleInterface interface. */
@@ -118,15 +114,13 @@ public class CodeTest {
     public void testSecondExampleInterface() {
         Code code = new Code();
         String actual = code.describeClass(SecondExampleInterface.class);
-        System.out.println(actual);
+        String[] expected = new String[]{
+                "public interface SecondExampleInterface {\n",
+                "    public int interfaceIntFunction(float arg0);\n",
+                "}\n"
+        };
 
-        actual = actual.replace("public interface SecondExampleInterface {\n", "");
-        actual = actual.replace("    public int interfaceIntFunction(float arg0);\n", "");
-        actual = actual.replace("}\n", "");
-
-        actual = actual.replace(" ", "");
-        actual = actual.replace("\n", "");
-        assertEquals("Incorrect description of SecondExampleInterface()", "", actual);
+        assertReplacementStrings("Incorrect description of SecondExampleInterface()", expected, actual);
     }
 
     /** Test CodeTest class. */
@@ -134,21 +128,43 @@ public class CodeTest {
     public void testCodeTest() {
         Code code = new Code();
         String actual = code.describeClass(CodeTest.class);
+        String[] expected = new String[]{
+                "public class CodeTest {\n",
+                "    public CodeTest();\n",
 
-        actual = actual.replace("public class CodeTest {\n", "");
-        actual = actual.replace("    public CodeTest();\n", "");
+                "    public void testCreationCode();\n",
+                "    public void testCodeClass();\n",
+                "    public void testExampleSuperClass();\n",
+                "    public void testExampleClass();\n",
+                "    public void testFirstExampleInterface();\n",
+                "    public void testSecondExampleInterface();\n",
+                "    public void testCodeTest();\n",
+                "    private void assertReplacementStrings(String arg0, String[] arg1, String arg2);\n",
+                "    private String replaceString(String arg0, String arg1);\n",
+                "}\n"
+        };
 
-        actual = actual.replace("    public void testCreationCode();\n", "");
-        actual = actual.replace("    public void testCodeClass();\n", "");
-        actual = actual.replace("    public void testExampleSuperClass();\n", "");
-        actual = actual.replace("    public void testExampleClass();\n", "");
-        actual = actual.replace("    public void testFirstExampleInterface();\n", "");
-        actual = actual.replace("    public void testSecondExampleInterface();\n", "");
-        actual = actual.replace("    public void testCodeTest();\n", "");
-        actual = actual.replace("}\n", "");
+        assertReplacementStrings("Incorrect description of CodeTest()", expected, actual);
+    }
+
+    private void assertReplacementStrings(String message, String[] expected, String actual) {
+        for (int i = 0; i < expected.length; i++) {
+            actual = replaceString(actual, expected[i]);
+            assertFalse(message, actual == null);
+        }
 
         actual = actual.replace(" ", "");
         actual = actual.replace("\n", "");
-        assertEquals("Incorrect description of CodeTest()", "", actual);
+
+        assertEquals(message, "", actual);
+    }
+
+    private String replaceString(String string, String subString) {
+        if (!string.contains(subString)) {
+            return null;
+        }
+
+        string = string.replace(subString, "");
+        return string;
     }
 }
