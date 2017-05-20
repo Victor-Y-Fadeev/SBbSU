@@ -26,7 +26,9 @@ public final class SecondPartTasks {
 
                         return in
                                 .lines()
-                                .filter(line -> line.contains(sequence));
+                                .filter(line -> line.contains(sequence))
+                                .collect(Collectors.toList())
+                                .stream();
                     } catch(IOException e) {
                         return Stream
                                 .empty();
@@ -39,7 +41,7 @@ public final class SecondPartTasks {
     // Стрелок атакует мишень и каждый раз попадает в произвольную точку квадрата.
     // Надо промоделировать этот процесс с помощью класса java.util.Random и посчитать, какова вероятность попасть в мишень.
     public static double piDividedBy4() {
-        final int LIMIT = 4194304;
+        final int LIMIT = 1048576;
 
         return (double) (new Random())
                 .doubles()
