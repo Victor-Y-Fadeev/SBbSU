@@ -1,6 +1,8 @@
 package spbu.hw7.task1;
 
 import java.lang.reflect.*;
+import java.util.Arrays;
+import java.util.Comparator;
 
 /** Get code of class. */
 public class Code {
@@ -26,6 +28,11 @@ public class Code {
         builder.append("{\n");
 
         Field[] fields = clazz.getDeclaredFields();
+        Arrays.sort(fields,  new Comparator<Field>() {
+            public int compare(Field first, Field second) {
+                return first.getName().compareTo(second.getName());
+            }
+        });
         for (int i = 0; i < fields.length; i++) {
             if (!isNumber(fields[i].getName().replace("this$", ""))) {
                 builder.append(tab);
@@ -37,6 +44,11 @@ public class Code {
         }
 
         Constructor[] constructors = clazz.getDeclaredConstructors();
+        Arrays.sort(constructors,  new Comparator<Constructor>() {
+            public int compare(Constructor first, Constructor second) {
+                return first.getName().compareTo(second.getName());
+            }
+        });
         checkBlock(builder, indent, constructors.length);
         for (int i = 0; i < constructors.length; i++) {
             builder.append(tab);
@@ -47,6 +59,11 @@ public class Code {
         }
 
         Method[] methods = clazz.getDeclaredMethods();
+        Arrays.sort(methods,  new Comparator<Method>() {
+            public int compare(Method first, Method second) {
+                return first.getName().compareTo(second.getName());
+            }
+        });
         checkBlock(builder, indent, methods.length);
         for (int i = 0; i < methods.length; i++) {
             builder.append(tab);
@@ -57,6 +74,11 @@ public class Code {
         }
 
         Class[] classes = clazz.getDeclaredClasses();
+        Arrays.sort(classes,  new Comparator<Class>() {
+            public int compare(Class first, Class second) {
+                return first.getName().compareTo(second.getName());
+            }
+        });
         checkBlock(builder, indent, classes.length);
         for (int i = 0; i < classes.length; i++) {
             getClassSpecification(builder, classes[i], tab + "    ");
