@@ -44,23 +44,33 @@ public class TicTacToe {
     }
 
     private void checkWin() {
-        if ((matrix[0][0] == matrix[1][1]) && (matrix[1][1] == matrix[2][2]) && (matrix[0][0] != -1)){
-            isWin = true;
-            return;
-        }
+        if (matrix[1][1] != -1) {
+            boolean firstDiagonal = true;
+            boolean secondDiagonal = true;
 
-        if ((matrix[2][0] == matrix[1][1]) && (matrix[1][1] == matrix[0][2]) && (matrix[2][0] != -1)){
-            isWin = true;
-            return;
+            for (int i = 0; i < 2; i++) {
+                if (matrix[i][i] != matrix[i + 1][i + 1]) {
+                    firstDiagonal = false;
+                }
+
+                if (matrix[2 - i][i] != matrix[1 - i][i + 1]) {
+                    secondDiagonal = false;
+                }
+            }
+
+            if (firstDiagonal || secondDiagonal) {
+                isWin = true;
+                return;
+            }
         }
 
         for (int i = 0; i < 3; i++){
-            if ((matrix[0][i] == matrix[1][i]) && (matrix[1][i] == matrix[2][i]) && (matrix[0][i] != -1)){
+            if ((matrix[0][i] == matrix[1][i]) && (matrix[1][i] == matrix[2][i]) && (matrix[0][i] != -1)) {
                 isWin = true;
                 return;
             }
 
-            if ((matrix[i][0] == matrix[i][1]) && (matrix[i][1] == matrix[i][2]) && (matrix[i][0] != -1)){
+            if ((matrix[i][0] == matrix[i][1]) && (matrix[i][1] == matrix[i][2]) && (matrix[i][0] != -1)) {
                 isWin = true;
                 return;
             }
