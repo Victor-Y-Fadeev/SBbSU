@@ -1,5 +1,7 @@
 package spbu.hw8.task2;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 
 /** Main class. */
@@ -12,21 +14,21 @@ public class Main {
         final int ARRAY_SIZE = 1048576;
         final int REPEATS = 16;
 
-        long successivelyTime = 0;
-        long parallelTime = 0;
+        long[] successivelyTime = new long[REPEATS];
+        long[] parallelTime = new long[REPEATS];
 
         for (int i = 0; i < REPEATS; i++) {
             Integer[] array = arrayGenerator(ARRAY_SIZE);
 
-            successivelyTime += countSuccessively(array.clone());
-            parallelTime += countParallel(array);
+            successivelyTime[i] = countSuccessively(array.clone());
+            parallelTime[i] = countParallel(array);
         }
 
-        successivelyTime /= REPEATS;
-        parallelTime /= REPEATS;
+        Arrays.sort(successivelyTime);
+        Arrays.sort(parallelTime);
 
-        System.out.println("Parallel time: " + parallelTime + " millis");
-        System.out.println("Successively time: " + successivelyTime + " millis");
+        System.out.println("Parallel time: " + parallelTime[REPEATS/2 - 1] + " millis");
+        System.out.println("Successively time: " + successivelyTime[REPEATS/2 - 1] + " millis");
     }
 
     private static long countSuccessively(Integer[] array) {
