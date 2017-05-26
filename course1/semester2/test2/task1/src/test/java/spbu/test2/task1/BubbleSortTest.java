@@ -52,6 +52,26 @@ public class BubbleSortTest {
         checkReverseOrder("Bubble sort doesn't work with other comparator!", array);
     }
 
+    /** Test bubble sort for Node. */
+    @Test
+    public void testNodeBubbleSort() {
+        BubbleSort<Node> testing = new BubbleSort<>();
+
+        Node[] array = new Node[3];
+        array[0] = new Node(2, "b");
+        array[1] = new Node(0, "a");
+        array[2] = new Node(7, "cf");
+
+        testing.sort(array, new Comparator<Node>() {
+            @Override
+            public int compare(Node s1, Node s2) {
+                return s1.value.compareTo(s2.value);
+            }
+        });
+
+        assertEquals("Bubble sort with Node doesn't work!", "b", array[1].string);
+    }
+
     private void checkArray(String message, Integer[] array) {
         for (int i = 0; i < array.length - 1; i++){
             assertTrue(message, array[i].compareTo(array[i + 1]) <= 0);
@@ -61,6 +81,16 @@ public class BubbleSortTest {
     private void checkReverseOrder(String message, Integer[] array) {
         for (int i = array.length - 1; i > 0; i--){
             assertTrue(message, array[i].compareTo(array[i - 1]) <= 0);
+        }
+    }
+
+    private class Node {
+        Integer value;
+        String string;
+
+        Node(Integer value, String string) {
+            this.value = value;
+            this.string = string;
         }
     }
 }
