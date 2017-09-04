@@ -1,10 +1,18 @@
 language: c++ java
 
 install:
-    - sudo ./installScript.sh
+    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+    - sudo apt-get update -y
+    - sudo apt-get install -y g++-4.8
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 
 script:
-    - ./startScript.sh
+    - echo -e "\nCourse 1 (semester 1)\n"
+    - cd course1/sem1
+    - ../../searchScript.sh cppBuild.sh
+    - echo -e "\nCourse 1 (semester 2)\n"
+    - cd course1/sem2
+    - ../../searchScript.sh javaBuild.sh javaTest.sh
 
 notifications:
     email: false
