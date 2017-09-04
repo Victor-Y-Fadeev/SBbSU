@@ -1,5 +1,9 @@
 language: c++ java
 
+env:
+    - NAME="Course 1 (semester 1)"  FOLDER="course1/sem1" BUILD="cppBuild.sh"
+    - NAME="Course 1 (semester 2)"  FOLDER="course1/sem2" BUILD="javaBuild.sh" TEST="javaTest.sh"
+
 install:
     - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
     - sudo apt-get update -y
@@ -7,14 +11,8 @@ install:
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 
 script:
-    - echo -e "\nCourse 1 (semester 1)\n"
-    - cd course1/sem1
-    - ../../searchScript.sh cppBuild.sh
-    - cd ../..
-    - echo -e "\nCourse 1 (semester 2)\n"
-    - cd course1/sem2
-    - ../../searchScript.sh javaBuild.sh javaTest.sh
-    - cd ../..
-
+    - cd $FOLDER
+    - ../../searchScript.sh "$NAME" $BUILD $TEST
+    
 notifications:
     email: false

@@ -1,7 +1,10 @@
 #!/bin/bash
 
-buildScript=$1
-testScript=$2
+scriptTitle=$1
+buildScript=$2
+testScript=$3
+
+echo -e "\n$scriptTitle\n"
 
 for a in 0 1 2
 do
