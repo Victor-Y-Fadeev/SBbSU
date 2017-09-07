@@ -7,19 +7,13 @@ git:
 jobs:
     include:
     - stage: Course 1 (semester 1)
-      language: cpp
+      language: c++
       compiler: g++
       env: NAME="Course 1 (semester 1)"  FOLDER=course1/sem1 BUILD=cppBuild.sh
     - stage: Course 1 (semester 2)
       language: java
+      jdk: oraclejdk8
       env: NAME="Course 1 (semester 2)"  FOLDER=course1/sem2 BUILD=javaBuild.sh TEST=javaTest.sh
-      install: skip
-
-install:
-    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-    - sudo apt-get update -y
-    - sudo apt-get install -y g++-4.8
-    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 
 script:
     - cd $FOLDER
