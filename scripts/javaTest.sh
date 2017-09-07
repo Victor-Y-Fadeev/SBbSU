@@ -8,8 +8,8 @@ fi
 num=$1
 srcFolder="src"
 testFolder="test"
-jarJUnit="../../junit-4.12.jar"
-jarHamcrestCore="../../hamcrest-core-1.3.jar"
+jarJUnit="../../../../junit-4.12.jar"
+jarHamcrestCore="../../../../hamcrest-core-1.3.jar"
 
 if ! [[ -z `find -name test` ]] ; then
     testClass=`find $testFolder -name *.java`
