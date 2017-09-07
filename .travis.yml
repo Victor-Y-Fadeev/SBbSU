@@ -9,12 +9,11 @@ jobs:
     - stage: Course 1 (semester 1)
       language: c++
       compiler: g++
-      env: NAME="Course 1 (semester 1)"  FOLDER=course1/sem1 BUILD=cppBuild.sh
+      env: FOLDER=course1/sem1 BUILD=cppBuild.sh
     - stage: Course 1 (semester 2)
       language: java
       jdk: oraclejdk8
-      env: NAME="Course 1 (semester 2)"  FOLDER=course1/sem2 BUILD=javaBuild.sh TEST=javaTest.sh
+      env: FOLDER=course1/sem2 BUILD=javaBuild.sh TEST=javaTest.sh
 
 script:
-    - cd $FOLDER
-    - ../../searchScript.sh "$NAME" $BUILD $TEST
+    - ./searchScript.sh $FOLDER $BUILD $TEST

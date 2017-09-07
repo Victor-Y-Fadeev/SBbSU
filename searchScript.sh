@@ -1,10 +1,11 @@
 #!/bin/bash
 
-scriptTitle=$1
+folder=$1
 buildScript=$2
 testScript=$3
 
-echo -e "\n$scriptTitle\n"
+cd $folder
+echo -e "\nCourse ${folder:6:1} (semester ${folder:11})\n"
 
 for a in 0 1 2
 do
@@ -47,5 +48,7 @@ do
         fi
     done
 done
+
+cd ../..
 
 exit 0
