@@ -16,4 +16,4 @@ jobs:
       env: FOLDER=course1/sem2 BUILD=javaBuild.sh TEST=javaTest.sh
 
 script:
-    - ./searchScript.sh $FOLDER $BUILD $TEST
+    - ./scripts/searchScript.sh $FOLDER $BUILD $TEST

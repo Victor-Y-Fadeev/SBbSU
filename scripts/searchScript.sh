@@ -28,12 +28,12 @@ do
                     if [[ (${#j} == 5 && $b == 0) || (${#j} == 6 && $b == 1) ]] ; then        
                         cd $j
                         
-                        if ! ../../$buildScript ${j#"task"} ; then
+                        if ! ../../../../scripts/$buildScript ${j#"task"} ; then
                             exit 1
                         fi
 
                         if ! [[ -z $testScript ]] ; then
-                            if ! ../../$testScript ${j#"task"} ; then
+                            if ! ../../../../scripts/$testScript ${j#"task"} ; then
                                 exit 1
                             fi
                         fi
