@@ -1,0 +1,9 @@
+*.out
+*.jar
+*.class
+
+**/.idea/*.xml
+output.txt
+
+!misc.xml
+!modules.xml

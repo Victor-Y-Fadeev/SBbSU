@@ -1,4 +1,4 @@
-﻿Семестр 3
+Семестр 3
 =========
 ### Домашняя работа 2
 [Презентация](https://docs.google.com/presentation/d/1b8f1A7NdZxtvshejoE0S9ngrur4IuzTRoG4fiawP64w/edit?usp=sharing) <br/>
