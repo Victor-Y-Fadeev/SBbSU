@@ -12,7 +12,7 @@ public class Computer {
     private boolean isVirus;
 
     /** Create computer. */
-    public Computer(String System) {
+    public Computer(final String System) {
         isVirus = false;
         OS = System;
 
@@ -32,6 +32,11 @@ public class Computer {
         if (random.nextDouble() < DEFECT) {
             isVirus = true;
         }
+    }
+
+    /** Infect the computer. */
+    public void infect() {
+        isVirus = true;
     }
 
     /** Get computer's OS. */
