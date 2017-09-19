@@ -4,13 +4,14 @@ import java.util.Random;
 
 /** Computer class. */
 public class Computer {
-    public final String OS;
-    public boolean isVirus;
     private static final double WINDOWS = 0.7;
     private static final double LINUX = 0.1;
     private static final double MAC = 0.3;
     private final double DEFECT;
+    private final String OS;
+    private boolean isVirus;
 
+    /** Create computer. */
     public Computer(String System) {
         isVirus = false;
         OS = System;
@@ -24,7 +25,22 @@ public class Computer {
         }
     }
 
+    /** Try to infect the computer. */
     public void tryInfect() {
-        //Rundom rundomizer = new Rundom();
+        Random random = new Random();
+
+        if (random.nextDouble() < DEFECT) {
+            isVirus = true;
+        }
+    }
+
+    /** Get computer's OS. */
+    public String getOS() {
+        return OS;
+    }
+
+    /** Check computer's viruses. */
+    public boolean isVirus() {
+        return isVirus;
     }
 }
