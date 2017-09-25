@@ -94,11 +94,16 @@ public class Network {
                 computers[i] = new Computer(in.readLine());
             }
 
-            final int infect = Integer.parseInt(in.readLine());
-            for (int i = 0; i < infect; i++) {
-                final int x = Integer.parseInt(in.readLine()) - 1;
+            in.readLine();
+
+            final String infect = in.readLine();
+            final String[] infectList = infect.split(" ");
+            for (int i = 0; i < infectList.length; i++) {
+                final int x = Integer.parseInt(infectList[i]) - 1;
                 computers[x].infect();
             }
+
+            in.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,12 +123,16 @@ public class Network {
 
             final int connections = Integer.parseInt(in.readLine());
             for (int i = 0; i < connections; i++) {
-                final int x = Integer.parseInt(in.readLine()) - 1;
-                final int y = Integer.parseInt(in.readLine()) - 1;
+                final String connect = in.readLine();
+                final String[] connectionPoint = connect.split(" ");
+                final int x = Integer.parseInt(connectionPoint[0]) - 1;
+                final int y = Integer.parseInt(connectionPoint[1]) - 1;
 
                 matrix[x][y] = true;
                 matrix[y][x] = true;
             }
+
+            in.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
