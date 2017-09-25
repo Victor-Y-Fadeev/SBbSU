@@ -19,6 +19,8 @@ public class Network {
 
             computers = loadComputers(in, size);
             matrix = loadMatrix(in, size);
+
+            in.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
