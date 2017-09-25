@@ -8,11 +8,13 @@ import java.io.*;
 
 /** Test for Network class. */
 public class NetworkTest {
+    /** Creation test of Network class. */
     @Test
-    public void creatonTest() {
+    public void creationTest() {
         Network network = new Network("input.txt");
     }
 
+    /** Consistently Network test. */
     @Test
     public void consistentlyTest() {
         generateConsistently();
@@ -28,6 +30,7 @@ public class NetworkTest {
         assertTrue("Inconsistently infection error!", isVirus(config[0]) && isVirus(config[1]) && !isVirus(config[2]));
     }
 
+    /** Parallel Network test. */
     @Test
     public void parallelTest() {
         generateParallel();
@@ -54,6 +57,7 @@ public class NetworkTest {
         }
     }
 
+    /** Clean test inputs. */
     @After
     public void filesRemoving() {
         File file = new File("consistently.txt");
