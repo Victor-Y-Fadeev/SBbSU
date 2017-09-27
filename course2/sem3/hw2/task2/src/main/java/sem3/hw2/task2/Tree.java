@@ -1,103 +1,108 @@
 package sem3.hw2.task2;
 
+/** Binary search tree class. */
 public class Tree<T extends Comparable> {
     private Node<T> root;
 
-
+    /** Create tree. */
     public Tree() {
         root = null;
     }
 
-    public void add(T data) {
+    /** Add value to tree. */
+    public void add(T value) {
         if (root == null) {
-            root = new Node<T>(data);
+            root = new Node<T>(value);
             return;
         }
 
-        add(root, data);
+        add(root, value);
     }
 
-    public boolean find(T data) {
-        return find(root, data);
+    /** Check value contain. */
+    public boolean find(T value) {
+        return find(root, value);
     }
 
-    public void remove(T data) {
+    /** Remove value from tree. */
+    public void remove(T value) {
         if (root == null) {
             return;
         }
 
-        if (root.getData().equals(data)) {
-            root = removeNode(root);
+        if (root.getValue().equals(value)) {
+            root = refreshNode(root);
             return;
         }
 
-        remove(root, data);
+        remove(root, value);
     }
 
+    /** Check tree's empty. */
     public boolean isEmpty() {
         return root == null;
     }
 
 
-    private void add(Node<T> node, T data) {
-        if (node.getData().equals(data)) {
+    private void add(Node<T> node, T value) {
+        if (node.getValue().equals(value)) {
             return;
         }
 
-        if (node.getData().compareTo(data) > 0) {
+        if (node.getValue().compareTo(value) > 0) {
             if (node.getRight() == null) {
-                node.setRight(new Node<T>(data));
+                node.setRight(new Node<T>(value));
                 return;
             }
-            add(node.getRight(), data);
+            add(node.getRight(), value);
         } else {
             if (node.getLeft() == null) {
-                node.setLeft(new Node<T>(data));
+                node.setLeft(new Node<T>(value));
                 return;
             }
-            add(node.getLeft(), data);
+            add(node.getLeft(), value);
         }
     }
 
-    private  boolean find(Node<T> node, T data) {
+    private  boolean find(Node<T> node, T value) {
         if (node == null) {
             return false;
         }
 
-        if (node.getData().equals(data)) {
+        if (node.getValue().equals(value)) {
             return true;
         }
 
-        return find(node.getData().compareTo(data) > 0 ? node.getRight() : node.getLeft(), data);
+        return find(node.getValue().compareTo(value) > 0 ? node.getRight() : node.getLeft(), value);
     }
 
-    private void remove(Node<T> node, T data) {
-        if (node.getData().compareTo(data) > 0) {
+    private void remove(Node<T> node, T value) {
+        if (node.getValue().compareTo(value) > 0) {
             if (node.getRight() == null) {
                 return;
             }
 
-            if (node.getRight().getData().equals(data)) {
-                node.setRight(removeNode(node.getRight()));
+            if (node.getRight().getValue().equals(value)) {
+                node.setRight(refreshNode(node.getRight()));
                 return;
             }
 
-            remove(node.getRight(), data);
+            remove(node.getRight(), value);
         } else {
             if (node.getLeft() == null) {
                 return;
             }
 
-            if (node.getLeft().getData().equals(data)) {
-                node.setLeft(removeNode(node.getLeft()));
+            if (node.getLeft().getValue().equals(value)) {
+                node.setLeft(refreshNode(node.getLeft()));
                 return;
             }
 
-            remove(node.getLeft(), data);
+            remove(node.getLeft(), value);
         }
     }
 
-    private Node<T> removeNode(Node<T> node) {
+    private Node<T> refreshNode(Node<T> node) {
         if (node.getRight() != null && node.getLeft() != null) {
             Node<T> temp = node.getRight();
 
