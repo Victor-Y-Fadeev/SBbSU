@@ -28,15 +28,6 @@ public class Tree<T extends Comparable> implements Iterable<T> {
 
     /** Remove value from tree. */
     public void remove(T value) {
-        if (root == null) {
-            return;
-        }
-
-        if (root.getValue().equals(value)) {
-            root = refreshNode(root);
-            return;
-        }
-
         remove(root, value);
     }
 
@@ -56,15 +47,17 @@ public class Tree<T extends Comparable> implements Iterable<T> {
             return;
         }
 
-        if (node.getValue().compareTo(value) > 0) {
+        if (value.compareTo(node.getValue()) > 0) {
             if (node.getRight() == null) {
                 node.setRight(new Node<T>(value));
+                node.getRight().setParent(node);
                 return;
             }
             add(node.getRight(), value);
         } else {
             if (node.getLeft() == null) {
                 node.setLeft(new Node<T>(value));
+                node.getLeft().setParent(node);
                 return;
             }
             add(node.getLeft(), value);
@@ -80,48 +73,50 @@ public class Tree<T extends Comparable> implements Iterable<T> {
             return true;
         }
 
-        return find(node.getValue().compareTo(value) > 0 ? node.getRight() : node.getLeft(), value);
+        return find(value.compareTo(node.getValue()) > 0 ? node.getRight() : node.getLeft(), value);
     }
 
     private void remove(Node<T> node, T value) {
-        if (node.getValue().compareTo(value) > 0) {
-            if (node.getRight() == null) {
-                return;
-            }
-
-            if (node.getRight().getValue().equals(value)) {
-                node.setRight(refreshNode(node.getRight()));
-                return;
-            }
-
-            remove(node.getRight(), value);
-        } else {
-            if (node.getLeft() == null) {
-                return;
-            }
-
-            if (node.getLeft().getValue().equals(value)) {
-                node.setLeft(refreshNode(node.getLeft()));
-                return;
-            }
-
-            remove(node.getLeft(), value);
+        if (node == null) {
+            return;
         }
+
+        if (node.getValue().equals(value)) {
+            refreshNode(node);
+            return;
+        }
+
+        remove(value.compareTo(node.getValue()) > 0 ? node.getRight() : node.getLeft(), value);
     }
 
-    private Node<T> refreshNode(Node<T> node) {
+    private void refreshNode(Node<T> node) {
+        Node<T> refresh = null;
+
         if (node.getRight() != null && node.getLeft() != null) {
-            Node<T> temp = node.getRight();
+            refresh = node.getLeft();
 
-            while (temp.getLeft() != null) {
-                temp = temp.getLeft();
+            Node<T> temp = refresh;
+            while (temp.getRight() != null) {
+                temp = temp.getRight();
             }
-
-            temp.setLeft(node.getLeft());
-            return node.getRight();
+            temp.setRight(node.getRight());
+        } else {
+            refresh = node.getLeft() != null ? node.getLeft() : node.getRight();
         }
 
-        return node.getLeft() != null ? node.getLeft() : node.getRight();
+        if (node.getParent() == null) {
+            root = refresh;
+        } else {
+            if (node.getParent().getLeft().equals(node)) {
+                node.getParent().setLeft(refresh);
+            } else {
+                node.getParent().setRight(refresh);
+            }
+        }
+
+        if (refresh != null) {
+            refresh.setParent(node.getParent());
+        }
     }
 
 

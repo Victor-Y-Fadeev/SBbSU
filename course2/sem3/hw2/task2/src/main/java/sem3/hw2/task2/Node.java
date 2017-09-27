@@ -10,8 +10,14 @@ public class Node<T> {
     /** Create node. */
     public Node(T value) {
         this.value = value;
+        parent = null;
         left = null;
         right = null;
+    }
+
+    /** Set node's parent. */
+    public void setParent(Node<T> node) {
+        parent = node;
     }
 
     /** Set right node. */
@@ -27,6 +33,11 @@ public class Node<T> {
     /** Get node's value. */
     public T getValue() {
         return value;
+    }
+
+    /** Get node's parent. */
+    public Node<T> getParent() {
+        return parent;
     }
 
     /** Get left node. */
