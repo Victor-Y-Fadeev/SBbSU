@@ -21,36 +21,94 @@ public class Tree<T extends Comparable> {
         return find(root, data);
     }
 
-
-    private void add(Node<T> top, T data) {
-        if (top.getData().equals(data)) {
+    public void remove(T data) {
+        if (root == null) {
             return;
         }
 
-        if (top.getData().compareTo(data) > 0) {
-            if (top.getRight() == null) {
-                top.setRight(new Node<T>(data));
+        if (root.getData().equals(data)) {
+            root = removeNode(root);
+            return;
+        }
+
+        remove(root, data);
+    }
+
+    public boolean isEmpty() {
+        return root == null;
+    }
+
+
+    private void add(Node<T> node, T data) {
+        if (node.getData().equals(data)) {
+            return;
+        }
+
+        if (node.getData().compareTo(data) > 0) {
+            if (node.getRight() == null) {
+                node.setRight(new Node<T>(data));
                 return;
             }
-            add(top.getRight(), data);
+            add(node.getRight(), data);
         } else {
-            if (top.getLeft() == null) {
-                top.setLeft(new Node<T>(data));
+            if (node.getLeft() == null) {
+                node.setLeft(new Node<T>(data));
                 return;
             }
-            add(top.getLeft(), data);
+            add(node.getLeft(), data);
         }
     }
 
-    private  boolean find(Node<T> top, T data) {
-        if (top == null) {
+    private  boolean find(Node<T> node, T data) {
+        if (node == null) {
             return false;
         }
 
-        if (top.getData().equals(data)) {
+        if (node.getData().equals(data)) {
             return true;
         }
 
-        return find(top.getData().compareTo(data) > 0 ? top.getRight() : top.getLeft(), data);
+        return find(node.getData().compareTo(data) > 0 ? node.getRight() : node.getLeft(), data);
+    }
+
+    private void remove(Node<T> node, T data) {
+        if (node.getData().compareTo(data) > 0) {
+            if (node.getRight() == null) {
+                return;
+            }
+
+            if (node.getRight().getData().equals(data)) {
+                node.setRight(removeNode(node.getRight()));
+                return;
+            }
+
+            remove(node.getRight(), data);
+        } else {
+            if (node.getLeft() == null) {
+                return;
+            }
+
+            if (node.getLeft().getData().equals(data)) {
+                node.setLeft(removeNode(node.getLeft()));
+                return;
+            }
+
+            remove(node.getLeft(), data);
+        }
+    }
+
+    private Node<T> removeNode(Node<T> node) {
+        if (node.getRight() != null && node.getLeft() != null) {
+            Node<T> temp = node.getRight();
+
+            while (temp.getLeft() != null) {
+                temp = temp.getLeft();
+            }
+
+            temp.setLeft(node.getLeft());
+            return node.getRight();
+        }
+
+        return node.getLeft() != null ? node.getLeft() : node.getRight();
     }
 }
