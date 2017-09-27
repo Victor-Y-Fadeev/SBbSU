@@ -1,7 +1,9 @@
 package sem3.hw2.task2;
 
+import java.util.Iterator;
+
 /** Binary search tree class. */
-public class Tree<T extends Comparable> {
+public class Tree<T extends Comparable> implements Iterable<T> {
     private Node<T> root;
 
     /** Create tree. */
@@ -41,6 +43,11 @@ public class Tree<T extends Comparable> {
     /** Check tree's empty. */
     public boolean isEmpty() {
         return root == null;
+    }
+
+    /** Get iterator for tree. */
+    public Iterator<T> iterator() {
+        return new TreeIterator();
     }
 
 
@@ -115,5 +122,21 @@ public class Tree<T extends Comparable> {
         }
 
         return node.getLeft() != null ? node.getLeft() : node.getRight();
+    }
+
+
+    private class TreeIterator implements Iterator<T> {
+
+        public boolean hasNext() {
+            return false;
+        }
+
+        public T next() {
+            return null;
+        }
+
+        public void remove() {
+
+        }
     }
 }

@@ -5,6 +5,7 @@ public class Node<T> {
     private final T value;
     private Node<T> left;
     private Node<T> right;
+    private Node<T> parent;
 
     /** Create node. */
     public Node(T value) {
