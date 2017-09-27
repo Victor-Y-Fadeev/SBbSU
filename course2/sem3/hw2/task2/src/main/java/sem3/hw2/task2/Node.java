@@ -7,6 +7,7 @@ public class Node<T> {
     private Node<T> right;
     private Node<T> parent;
 
+
     /** Create node. */
     public Node(T value) {
         this.value = value;

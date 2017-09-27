@@ -1,10 +1,12 @@
 package sem3.hw2.task2;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /** Binary search tree class. */
 public class Tree<T extends Comparable> implements Iterable<T> {
     private Node<T> root;
+
 
     /** Create tree. */
     public Tree() {
@@ -121,17 +123,60 @@ public class Tree<T extends Comparable> implements Iterable<T> {
 
 
     private class TreeIterator implements Iterator<T> {
+        private Node<T> current;
+        private Node<T> next;
+
+
+        public TreeIterator() {
+            current = null;
+            next = root;
+
+            while (next != null && next.getLeft() != null) {
+                next = next.getLeft();
+            }
+        }
 
         public boolean hasNext() {
-            return false;
+            return next != null;
         }
 
         public T next() {
-            return null;
+            if (current == null) {
+                throw new NoSuchElementException();
+            }
+
+            current = next;
+            next = getNext();
+
+            return current.getValue();
         }
 
         public void remove() {
+            if (current == null) {
+                throw new IllegalStateException();
+            }
 
+            refreshNode(current);
+        }
+
+
+        private Node<T> getNext() {
+            if (next.getRight() != null) {
+                Node<T> temp = next.getRight();
+
+                while (temp.getLeft() != null) {
+                    temp = temp.getLeft();
+                }
+
+                return temp;
+            }
+
+            Node<T> temp = next;
+            while (temp.getParent() != null && temp.getParent().getRight().equals(temp)) {
+                temp = temp.getParent();
+            }
+
+            return temp.getParent();
         }
     }
 }
