@@ -110,7 +110,7 @@ public class Tree<T extends Comparable> implements Iterable<T> {
         if (node.getParent() == null) {
             root = refresh;
         } else {
-            if (node.getParent().getLeft() != null && node.getParent().getLeft().equals(node)) {
+            if (node.equals(node.getParent().getLeft())) {
                 node.getParent().setLeft(refresh);
             } else {
                 node.getParent().setRight(refresh);
@@ -142,7 +142,7 @@ public class Tree<T extends Comparable> implements Iterable<T> {
         }
 
         public T next() {
-            if (current == null) {
+            if (next == null) {
                 throw new NoSuchElementException();
             }
 
@@ -173,7 +173,7 @@ public class Tree<T extends Comparable> implements Iterable<T> {
             }
 
             Node<T> temp = next;
-            while (temp.getParent() != null && temp.getParent().getRight() != null && temp.getParent().getRight().equals(temp)) {
+            while (temp.getParent() != null && temp.equals(temp.getParent().getRight())) {
                 temp = temp.getParent();
             }
 
