@@ -95,7 +95,6 @@ public class TreeTest {
     @Test
     public void iteratorHasNextTest() {
         Tree<Integer> tree = new Tree<Integer>();
-        Integer[] values = generateValues();
 
         Iterator<Integer> iterator = tree.iterator();
 
@@ -142,6 +141,24 @@ public class TreeTest {
         }
 
         assertTrue("Iterator's remove isn't work!", tree.isEmpty());
+    }
+
+    /** Test tree's foreach loop. */
+    @Test
+    public void foreachTest() {
+        final int TREE_SIZE = 16;
+        Tree<Integer> tree = new Tree<Integer>();
+
+        for (int i = 0; i < TREE_SIZE; i++) {
+            tree.add(i);
+        }
+
+        int size = 0;
+        for(Integer i : tree) {
+            size++;
+        }
+
+        assertEquals("Foreach isn't work!", TREE_SIZE, size);
     }
 
     private Integer[] generateValues() {
