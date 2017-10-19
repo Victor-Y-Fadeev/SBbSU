@@ -57,6 +57,46 @@ public class NetworkTest {
         }
     }
 
+    /** Consistently Network test using hard infection. */
+    @Test
+    public void hardConsistentlyTest() {
+        generateConsistently();
+        Network network = new Network("consistently.txt");
+
+        String[] config = network.getStatus().split("\n");
+        assertTrue("Inconsistently infection error!", isVirus(config[0]) && !isVirus(config[1]) && !isVirus(config[2]));
+
+        network.hardInfect();
+        config = network.getStatus().split("\n");
+        assertTrue("Inconsistently infection error!", isVirus(config[0]) && isVirus(config[1]) && !isVirus(config[2]));
+
+        network.hardInfect();
+        config = network.getStatus().split("\n");
+        assertTrue("Inconsistently infection error!", isVirus(config[0]) && isVirus(config[1]) && isVirus(config[2]));
+    }
+
+    /** Parallel Network test using hard infection. */
+    @Test
+    public void hardParallelTest() {
+        generateParallel();
+        Network network = new Network("parallel.txt");
+
+        String[] config = network.getStatus().split("\n");
+        assertTrue("Teleport infection error!", isVirus(config[0]) && !isVirus(config[1]) && !isVirus(config[2])&& !isVirus(config[3])&& !isVirus(config[4])&& !isVirus(config[5]));
+
+        network.hardInfect();
+        config = network.getStatus().split("\n");
+        assertTrue("Teleport infection error!", isVirus(config[0]) && isVirus(config[1]) && isVirus(config[2])&& !isVirus(config[3])&& !isVirus(config[4])&& !isVirus(config[5]));
+
+        network.hardInfect();
+        config = network.getStatus().split("\n");
+        assertTrue("Teleport infection error!", isVirus(config[0]) && isVirus(config[1]) && isVirus(config[2])&& isVirus(config[3])&& !isVirus(config[4])&& isVirus(config[5]));
+
+        network.hardInfect();
+        config = network.getStatus().split("\n");
+        assertTrue("Teleport infection error!", isVirus(config[0]) && isVirus(config[1]) && isVirus(config[2])&& isVirus(config[3])&& isVirus(config[4])&& isVirus(config[5]));
+    }
+
     /** Clean test inputs. */
     @After
     public void filesRemoving() {

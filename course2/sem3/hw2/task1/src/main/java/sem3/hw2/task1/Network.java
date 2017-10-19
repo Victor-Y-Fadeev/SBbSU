@@ -28,19 +28,12 @@ public class Network {
 
     /** To do progress. */
     public void timeGoes() {
-        HashSet<Computer> toInfect = new HashSet<>();
+        getToInfectList().forEach(computer -> computer.tryInfect());
+    }
 
-        for (int i = 0; i < computers.length; i++) {
-            if (computers[i].isVirus()) {
-                for (int j = 0; j < matrix.length; j++) {
-                    if (matrix[i][j] && !computers[j].isVirus()) {
-                        toInfect.add(computers[j]);
-                    }
-                }
-            }
-        }
-
-        toInfect.forEach(computer -> computer.tryInfect());
+    /** To do hard infection. */
+    public void hardInfect() {
+        getToInfectList().forEach(computer -> computer.infect());
     }
 
     /** Get computers status. */
@@ -140,5 +133,21 @@ public class Network {
         }
 
         return matrix;
+    }
+
+    private HashSet<Computer> getToInfectList() {
+        HashSet<Computer> toInfect = new HashSet<>();
+
+        for (int i = 0; i < computers.length; i++) {
+            if (computers[i].isVirus()) {
+                for (int j = 0; j < matrix.length; j++) {
+                    if (matrix[i][j] && !computers[j].isVirus()) {
+                        toInfect.add(computers[j]);
+                    }
+                }
+            }
+        }
+
+        return toInfect;
     }
 }
