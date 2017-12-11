@@ -11,14 +11,14 @@ public class NetworkTest {
     /** Creation test of Network class. */
     @Test
     public void creationTest() {
-        Network network = new Network("input.txt");
+        Network network = new Network("input.txt", new InfectRandom());
     }
 
     /** Consistently Network test. */
     @Test
     public void consistentlyTest() {
         generateConsistently();
-        Network network = new Network("consistently.txt");
+        Network network = new Network("consistently.txt", new InfectRandom());
 
         String[] config = network.getStatus().split("\n");
         assertTrue("Inconsistently infection error!", isVirus(config[0]) && !isVirus(config[1]) && !isVirus(config[2]));
@@ -34,7 +34,7 @@ public class NetworkTest {
     @Test
     public void parallelTest() {
         generateParallel();
-        Network network = new Network("parallel.txt");
+        Network network = new Network("parallel.txt", new InfectRandom());
 
         String[] config = network.getStatus().split("\n");
         assertTrue("Teleport infection error!", isVirus(config[0]) && !isVirus(config[1]) && !isVirus(config[2])&& !isVirus(config[3])&& !isVirus(config[4])&& !isVirus(config[5]));
@@ -61,16 +61,16 @@ public class NetworkTest {
     @Test
     public void hardConsistentlyTest() {
         generateConsistently();
-        Network network = new Network("consistently.txt");
+        Network network = new Network("consistently.txt", new HardRandom());
 
         String[] config = network.getStatus().split("\n");
         assertTrue("Inconsistently infection error!", isVirus(config[0]) && !isVirus(config[1]) && !isVirus(config[2]));
 
-        network.hardInfect();
+        network.timeGoes();
         config = network.getStatus().split("\n");
         assertTrue("Inconsistently infection error!", isVirus(config[0]) && isVirus(config[1]) && !isVirus(config[2]));
 
-        network.hardInfect();
+        network.timeGoes();
         config = network.getStatus().split("\n");
         assertTrue("Inconsistently infection error!", isVirus(config[0]) && isVirus(config[1]) && isVirus(config[2]));
     }
@@ -79,20 +79,20 @@ public class NetworkTest {
     @Test
     public void hardParallelTest() {
         generateParallel();
-        Network network = new Network("parallel.txt");
+        Network network = new Network("parallel.txt", new HardRandom());
 
         String[] config = network.getStatus().split("\n");
         assertTrue("Teleport infection error!", isVirus(config[0]) && !isVirus(config[1]) && !isVirus(config[2])&& !isVirus(config[3])&& !isVirus(config[4])&& !isVirus(config[5]));
 
-        network.hardInfect();
+        network.timeGoes();
         config = network.getStatus().split("\n");
         assertTrue("Teleport infection error!", isVirus(config[0]) && isVirus(config[1]) && isVirus(config[2])&& !isVirus(config[3])&& !isVirus(config[4])&& !isVirus(config[5]));
 
-        network.hardInfect();
+        network.timeGoes();
         config = network.getStatus().split("\n");
         assertTrue("Teleport infection error!", isVirus(config[0]) && isVirus(config[1]) && isVirus(config[2])&& isVirus(config[3])&& !isVirus(config[4])&& isVirus(config[5]));
 
-        network.hardInfect();
+        network.timeGoes();
         config = network.getStatus().split("\n");
         assertTrue("Teleport infection error!", isVirus(config[0]) && isVirus(config[1]) && isVirus(config[2])&& isVirus(config[3])&& isVirus(config[4])&& isVirus(config[5]));
     }
@@ -136,6 +136,23 @@ public class NetworkTest {
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private class HardRandom implements ComputerRandom {
+        @Override
+        public boolean infectWindows() {
+            return true;
+        }
+
+        @Override
+        public boolean infectLinux() {
+            return true;
+        }
+
+        @Override
+        public boolean infectMac() {
+            return true;
         }
     }
 }

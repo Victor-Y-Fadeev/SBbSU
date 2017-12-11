@@ -7,11 +7,14 @@ import java.util.HashSet;
 
 /** Network class. */
 public class Network {
+    private static ComputerRandom random;
     private boolean[][] matrix;
     private Computer[] computers;
 
     /** Load network card from file. */
-    public Network(final String path) {
+    public Network(final String path, ComputerRandom random) {
+        this.random = random;
+
         try(FileReader reader = new FileReader(path)) {
             BufferedReader in = new BufferedReader(reader);
 
@@ -29,11 +32,6 @@ public class Network {
     /** To do progress. */
     public void timeGoes() {
         getToInfectList().forEach(computer -> computer.tryInfect());
-    }
-
-    /** To do hard infection. */
-    public void hardInfect() {
-        getToInfectList().forEach(computer -> computer.infect());
     }
 
     /** Get computers status. */
@@ -86,7 +84,7 @@ public class Network {
 
         try {
             for (int i = 0; i < size; i++) {
-                computers[i] = new Computer(in.readLine());
+                computers[i] = new Computer(in.readLine(), random);
             }
 
             in.readLine();
