@@ -76,4 +76,8 @@ public class Turret implements Coordinate {
 
         gc.drawImage(turret, x - TURRET_SIZE / 2, y - TURRET_SIZE / 2);
     }
+
+    public Bullet fire() {
+        return new Bullet(gc, (int) (x + Math.cos(Math.PI * fi / 180) * GUN_SIZE), (int) (y + Math.sin(Math.PI * fi / 180) * GUN_SIZE), fi);
+    }
 }

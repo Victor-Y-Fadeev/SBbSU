@@ -97,4 +97,8 @@ public class Map {
 
         return y;
     }
+
+    public boolean isOnTheGround(Coordinate obj) {
+        return obj.getY() > getGroundY(obj.getX());
+    }
 }

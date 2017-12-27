@@ -62,6 +62,7 @@ public class Game extends Application {
         Map map = new Map(gc);
         Turret turret = new Turret(gc, 680, 0);
         map.putOnTheGround(turret);
+        LinkedList<Bullet> bullets = new LinkedList<>();
 
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
@@ -86,6 +87,27 @@ public class Game extends Application {
                 }
 
                 turret.draw();
+
+                if (input.contains("ENTER")) {
+                    bullets.add(turret.fire());
+                    input.remove("ENTER");
+                }
+
+                for (Bullet bullet : bullets) {
+                    if (map.isOnTheGround(bullet)) {
+                        bullet.explode();
+                    }
+
+                    if (bullet.isExploded()) {
+                        bullets.remove(bullet);
+                    } else {
+                        bullet.draw();
+                    }
+                }
+
+                if (input.contains("ESCAPE")) {
+                    primaryStage.close();
+                }
             }
         }.start();
 
