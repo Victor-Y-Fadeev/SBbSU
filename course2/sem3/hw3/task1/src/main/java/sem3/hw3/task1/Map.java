@@ -5,19 +5,18 @@ import javafx.scene.image.Image;
 
 /** The Map of Game. */
 public class Map {
-    private static final int width = 1360;
-    private static final int height = 765;
-    private static final int blockSize = 85;
-    private static int[] map = {4, 3, 5, 4, 2, 2, 1, 3, 3, 3, 3, 2, 3, 3, 5, 6, 4};
+    private static final int HEIGHT = 765;
+    private static final int BLOCK_SIZE = 85;
+    private static final int[] MAP = {4, 3, 5, 4, 2, 2, 1, 3, 3, 3, 3, 2, 3, 3, 5, 6, 4};
 
-    private GraphicsContext gc;
-    private Image background;
-    private Image ground;
-    private Image groundZero;
-    private Image groundUpOne;
-    private Image groundUpTwo;
-    private Image groundDownOne;
-    private Image groundDownTwo;
+    private final GraphicsContext gc;
+    private final Image background;
+    private final Image ground;
+    private final Image groundZero;
+    private final Image groundUpOne;
+    private final Image groundUpTwo;
+    private final Image groundDownOne;
+    private final Image groundDownTwo;
 
     /** Create Map. */
     public Map(GraphicsContext gc) {
@@ -36,39 +35,66 @@ public class Map {
     public void draw() {
         gc.drawImage(background, 0, 0);
 
-        for (int i = 0; i < map.length - 1; i++) {
-            switch (map[i + 1] - map[i]) {
+        for (int i = 0; i < MAP.length - 1; i++) {
+            switch (MAP[i + 1] - MAP[i]) {
                 case 0:
-                    gc.drawImage(ground, i * blockSize, height - blockSize * map[i]);
-                    for (int j = 1; j < map[i]; j++) {
-                        gc.drawImage(groundZero, i * blockSize, height - blockSize * j);
+                    gc.drawImage(ground, i * BLOCK_SIZE, HEIGHT - BLOCK_SIZE * MAP[i]);
+                    for (int j = 1; j < MAP[i]; j++) {
+                        gc.drawImage(groundZero, i * BLOCK_SIZE, HEIGHT - BLOCK_SIZE * j);
                     }
                     break;
                 case 1:
-                    gc.drawImage(groundUpOne, i * blockSize, height - blockSize * map[i + 1]);
-                    for (int j = 1; j < map[i + 1]; j++) {
-                        gc.drawImage(groundZero, i * blockSize, height - blockSize * j);
+                    gc.drawImage(groundUpOne, i * BLOCK_SIZE, HEIGHT - BLOCK_SIZE * MAP[i + 1]);
+                    for (int j = 1; j < MAP[i + 1]; j++) {
+                        gc.drawImage(groundZero, i * BLOCK_SIZE, HEIGHT - BLOCK_SIZE * j);
                     }
                     break;
                 case 2:
-                    gc.drawImage(groundUpTwo, i * blockSize, height - blockSize * map[i + 1]);
-                    for (int j = 1; j < map[i + 1] - 1; j++) {
-                        gc.drawImage(groundZero, i * blockSize, height - blockSize * j);
+                    gc.drawImage(groundUpTwo, i * BLOCK_SIZE, HEIGHT - BLOCK_SIZE * MAP[i + 1]);
+                    for (int j = 1; j < MAP[i + 1] - 1; j++) {
+                        gc.drawImage(groundZero, i * BLOCK_SIZE, HEIGHT - BLOCK_SIZE * j);
                     }
                     break;
                 case -1:
-                    gc.drawImage(groundDownOne, i * blockSize, height - blockSize * map[i]);
-                    for (int j = 1; j < map[i]; j++) {
-                        gc.drawImage(groundZero, i * blockSize, height - blockSize * j);
+                    gc.drawImage(groundDownOne, i * BLOCK_SIZE, HEIGHT - BLOCK_SIZE * MAP[i]);
+                    for (int j = 1; j < MAP[i]; j++) {
+                        gc.drawImage(groundZero, i * BLOCK_SIZE, HEIGHT - BLOCK_SIZE * j);
                     }
                     break;
                 case -2:
-                    gc.drawImage(groundDownTwo, i * blockSize, height - blockSize * map[i]);
-                    for (int j = 1; j < map[i] - 1; j++) {
-                        gc.drawImage(groundZero, i * blockSize, height - blockSize * j);
+                    gc.drawImage(groundDownTwo, i * BLOCK_SIZE, HEIGHT - BLOCK_SIZE * MAP[i]);
+                    for (int j = 1; j < MAP[i] - 1; j++) {
+                        gc.drawImage(groundZero, i * BLOCK_SIZE, HEIGHT - BLOCK_SIZE * j);
                     }
                     break;
             }
         }
+    }
+
+    public void putOnTheGround(Coordinate obj) {
+        obj.setY(getGroundY(obj.getX()));
+    }
+
+    private int getGroundY(int x) {
+        final int blockNumber = x / BLOCK_SIZE;
+        int y = HEIGHT - MAP[blockNumber] * BLOCK_SIZE;
+
+        switch (MAP[blockNumber + 1] - MAP[blockNumber]) {
+            case 1:
+                y -= x - blockNumber * BLOCK_SIZE;
+                break;
+            case -1:
+                y += x - blockNumber * BLOCK_SIZE;
+                break;
+            case 2:
+                y -= 2 * (x - blockNumber * BLOCK_SIZE);
+                break;
+            case -2:
+                y += 2 * (x - blockNumber * BLOCK_SIZE);
+                break;
+
+        }
+
+        return y;
     }
 }
