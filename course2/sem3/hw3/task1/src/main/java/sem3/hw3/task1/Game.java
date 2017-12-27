@@ -108,22 +108,31 @@ public class Game extends Application {
                     keys.remove("ENTER");
                 }
 
-                for (Bullet bullet : bullets) {
-                    if (map.isOnTheGround(bullet)) {
-                        bullet.explode();
-                    }
-
-                    if (bullet.isExploded()) {
-                        bullets.remove(bullet);
-                    } else {
-                        bullet.draw();
-                    }
-                }
+                cleanBullets(map, bullets);
+                bullets.forEach(bullet -> bullet.draw());
 
                 if (keys.contains("ESCAPE")) {
                     primaryStage.close();
                 }
             }
         }.start();
+    }
+
+    private void cleanBullets(Map map, LinkedList<Bullet> bullets) {
+        LinkedList<Bullet> toRemove = new LinkedList<>();
+
+        for (Bullet bullet : bullets) {
+            if (map.isOnTheGround(bullet)) {
+                bullet.explode();
+            }
+
+            if (bullet.isExploded()) {
+                toRemove.add(bullet);
+            }
+        }
+
+        for (Bullet bullet : toRemove) {
+            bullets.remove(bullet);
+        }
     }
 }
