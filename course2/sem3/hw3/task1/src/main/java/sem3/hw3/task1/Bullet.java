@@ -3,6 +3,7 @@ package sem3.hw3.task1;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+/** Bullet class. */
 public class Bullet implements Coordinate {
     private static final int MAX_WIDTH = 1360;
     private static final int MAX_HEIGHT = 765;
@@ -19,6 +20,7 @@ public class Bullet implements Coordinate {
     private int y;
     private int dx;
 
+    /** Create Bullet. */
     public Bullet(GraphicsContext gc, int x, int y, int fi) {
         this.gc = gc;
         this.x = x;
@@ -58,6 +60,7 @@ public class Bullet implements Coordinate {
         this.y = y;
     }
 
+    /** Draw Bullet. */
     public void draw() {
         gc.drawImage(bullet, x - BULLET_SIZE / 2, y - BULLET_SIZE / 2);
 
@@ -69,10 +72,12 @@ public class Bullet implements Coordinate {
         }
     }
 
+    /** Explode Bullet. */
     public void explode() {
         exploded = true;
     }
 
+    /** Check bullet's destruction. */
     public boolean isExploded() {
         return exploded;
     }

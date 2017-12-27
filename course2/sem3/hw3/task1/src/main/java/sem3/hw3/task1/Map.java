@@ -71,8 +71,14 @@ public class Map {
         }
     }
 
+    /** Put object on the ground. */
     public void putOnTheGround(Coordinate obj) {
         obj.setY(getGroundY(obj.getX()));
+    }
+
+    /** Check object location. */
+    public boolean isOnTheGround(Coordinate obj) {
+        return obj.getY() > getGroundY(obj.getX());
     }
 
     private int getGroundY(int x) {
@@ -96,9 +102,5 @@ public class Map {
         }
 
         return y;
-    }
-
-    public boolean isOnTheGround(Coordinate obj) {
-        return obj.getY() > getGroundY(obj.getX());
     }
 }

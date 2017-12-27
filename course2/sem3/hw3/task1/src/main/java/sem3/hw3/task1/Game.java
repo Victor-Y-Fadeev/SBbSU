@@ -16,14 +16,14 @@ import java.util.LinkedList;
 
 /** The Game class. */
 public class Game extends Application {
+    private static final int BASIC_WIDTH = 1360;
+    private static final int BASIC_HEIGHT = 765;
+    private static final int SCREEN_WIDTH = (int) Screen.getPrimary().getVisualBounds().getWidth();
+    private static final int SCREEN_HEIGHT = (int) Screen.getPrimary().getVisualBounds().getHeight();
+
     /** Start The Game. */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        final int basicWidth = 1360;
-        final int basicHeight = 765;
-        final int screenWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
-        final int screenHeight = (int) Screen.getPrimary().getVisualBounds().getHeight();
-
         primaryStage.setTitle("Tanks");
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
@@ -31,10 +31,24 @@ public class Game extends Application {
         Group root = new Group();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        LinkedList<String> keys = keyboardSettings(scene);
 
-        Canvas canvas = new Canvas(screenWidth, screenHeight);
+        Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
         root.getChildren().add(canvas);
 
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.scale((double) SCREEN_WIDTH / BASIC_WIDTH, (double) SCREEN_HEIGHT / BASIC_HEIGHT);
+
+        gameMechanics(primaryStage, gc, keys);
+        primaryStage.show();
+    }
+
+    /** Main function. */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    private LinkedList<String> keyboardSettings(Scene scene) {
         LinkedList<String> input = new LinkedList<>();
 
         scene.setOnKeyPressed(
@@ -56,9 +70,10 @@ public class Game extends Application {
                     }
                 });
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.scale((double) screenWidth / basicWidth, (double) screenHeight / basicHeight);
+        return input;
+    }
 
+    private void gameMechanics(Stage primaryStage, GraphicsContext gc, LinkedList<String> keys) {
         Map map = new Map(gc);
         Turret turret = new Turret(gc, 680, 0);
         map.putOnTheGround(turret);
@@ -68,29 +83,29 @@ public class Game extends Application {
             public void handle(long currentNanoTime) {
                 map.draw();
 
-                if (input.contains("LEFT")) {
+                if (keys.contains("LEFT")) {
                     turret.setX(turret.getX() - 1);
                     map.putOnTheGround(turret);
                 }
 
-                if (input.contains("RIGHT")) {
+                if (keys.contains("RIGHT")) {
                     turret.setX(turret.getX() + 1);
                     map.putOnTheGround(turret);
                 }
 
-                if (input.contains("UP")) {
+                if (keys.contains("UP")) {
                     turret.gunUp();
                 }
 
-                if (input.contains("DOWN")) {
+                if (keys.contains("DOWN")) {
                     turret.gunDown();
                 }
 
                 turret.draw();
 
-                if (input.contains("ENTER")) {
+                if (keys.contains("ENTER")) {
                     bullets.add(turret.fire());
-                    input.remove("ENTER");
+                    keys.remove("ENTER");
                 }
 
                 for (Bullet bullet : bullets) {
@@ -105,17 +120,10 @@ public class Game extends Application {
                     }
                 }
 
-                if (input.contains("ESCAPE")) {
+                if (keys.contains("ESCAPE")) {
                     primaryStage.close();
                 }
             }
         }.start();
-
-        primaryStage.show();
-    }
-
-    /** Main function. */
-    public static void main(String[] args) {
-        launch(args);
     }
 }
