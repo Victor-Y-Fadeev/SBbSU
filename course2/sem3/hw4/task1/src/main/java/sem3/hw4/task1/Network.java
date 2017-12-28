@@ -8,11 +8,13 @@ import java.net.Socket;
 import java.util.Enumeration;
 import java.util.Scanner;
 
+/** Network class. */
 public class Network {
     private DataInputStream input;
     private DataOutputStream output;
     private boolean server;
 
+    /** Create Network. */
     public Network() {
         Scanner in = new Scanner(System.in);
 
@@ -22,16 +24,17 @@ public class Network {
         try {
             if ((respond.charAt(0) == 'Y') || (respond.charAt(0) == 'y')) {
                 server = true;
-                //serverDialog(in);
+                serverDialog(in);
             } else {
                 server = false;
-                //clientDialog(in);
+                clientDialog(in);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /** Synchronization data arrays. */
     public int[] synchronization(int[] send) {
         int[] receive = null;
 
@@ -50,6 +53,7 @@ public class Network {
         return receive;
     }
 
+    /** Check current computer type. */
     public boolean isServer() {
         return server;
     }

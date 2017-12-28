@@ -3,7 +3,7 @@ package sem3.hw4.task1;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-/** Bullet class. */
+/** Abstract Bullet class. */
 public abstract class Bullet implements Coordinate {
     protected static final int MAX_WIDTH = 1360;
     protected static final int MAX_HEIGHT = 765;
@@ -61,10 +61,12 @@ public abstract class Bullet implements Coordinate {
         }
     }
 
+    /** Get splash radius. */
     public int getRadius() {
         return explodeRadius;
     }
 
+    /** Get bullet's type. */
     public abstract int getType();
 
     /** Draw Bullet. */

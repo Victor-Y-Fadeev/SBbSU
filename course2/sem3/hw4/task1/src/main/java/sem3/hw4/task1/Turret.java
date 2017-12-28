@@ -73,6 +73,7 @@ public class Turret implements Coordinate {
         this.fi = fi;
     }
 
+    /** Change turret's factory. */
     public void changeFactory(BulletFactory factory) {
         this.factory = factory;
     }

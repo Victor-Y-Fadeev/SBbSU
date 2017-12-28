@@ -5,7 +5,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import java.util.LinkedList;
 
+/** The Game class. */
 public class Game {
+    private static final int CHECK_UPDATES = 10;
     private Stage primaryStage;
     private GraphicsContext gc;
     private LinkedList<String> keys;
@@ -19,16 +21,16 @@ public class Game {
 
     private Network network;
     private Transfer transfer;
-
     private int wait;
 
+    /** Create Game. */
     public Game(Stage primaryStage, GraphicsContext gc, LinkedList<String> keys, Network network) {
         this.primaryStage = primaryStage;
         this.gc = gc;
         this.keys = keys;
         this.network = network;
 
-        wait = 100;
+        wait = CHECK_UPDATES;
         transfer = new Transfer();
         map = new Map(gc);
 
@@ -48,6 +50,7 @@ public class Game {
         changer = new BulletChanger(gc, currentTurret, true);
     }
 
+    /** Start playing. */
     public void play() {
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
@@ -109,11 +112,11 @@ public class Game {
                 bullets.forEach(bullet -> bullet.draw());
                 changer.draw();
 
-                /*if (wait == 0) {
+                if (wait == 0) {
                     transfer.emitState(network.synchronization(transfer.createState()));
-                    wait = 100;
+                    wait = CHECK_UPDATES;
                 }
-                wait--;*/
+                wait--;
             }
         }.start();
     }

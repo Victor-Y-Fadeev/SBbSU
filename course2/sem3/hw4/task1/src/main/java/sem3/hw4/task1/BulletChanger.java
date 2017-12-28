@@ -4,18 +4,21 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+/** Bullet Changer class. */
 public class BulletChanger {
     private final GraphicsContext gc;
     private final Turret turret;
 
     private boolean isLow;
 
+    /** Create Changer. */
     public BulletChanger(GraphicsContext gc, Turret turret, boolean isLow) {
         this.gc = gc;
         this.turret = turret;
         this.isLow = isLow;
     }
 
+    /** Change bullet type. */
     public void change() {
         if (isLow) {
             turret.changeFactory(new HighBulletFactory());
@@ -26,6 +29,7 @@ public class BulletChanger {
         isLow = !isLow;
     }
 
+    /** Draw current bullet type. */
     public void draw() {
         final int X = 1190;
         final int Y = 85;
