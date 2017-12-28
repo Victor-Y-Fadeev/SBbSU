@@ -11,23 +11,74 @@ import java.util.Scanner;
 public class Network {
     private InputStream input;
     private OutputStream output;
+    private boolean server;
 
-    public Network() throws IOException {
+    public Network() {
         Scanner in = new Scanner(System.in);
 
         System.out.print("You are server or not: ");
         final String respond = in.nextLine();
 
-        if ((respond.charAt(0) == 'Y') || (respond.charAt(0) == 'y')) {
-            serverDialog(in);
-        } else {
-            clientDialog(in);
+        try {
+            if ((respond.charAt(0) == 'Y') || (respond.charAt(0) == 'y')) {
+                server = true;
+                serverDialog(in);
+            } else {
+                server = false;
+                clientDialog(in);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    public int[] synchronization(int[] send) {
+        int[] receive = null;
+
+        try {
+            if (isServer()) {
+                receive = receiveData();
+                sendData(send);
+            } else {
+                sendData(send);
+                receive = receiveData();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return receive;
+    }
+
+    public boolean isServer() {
+        return server;
+    }
+
+    private void sendData(int[] send) throws IOException {
+        final int size = send.length;
+        output.write(size);
+
+        for (int i = 0; i < size; i++) {
+            output.write(send[i]);
+        }
+
+        output.flush();
+    }
+
+    private int[] receiveData() throws IOException {
+        final int size = input.read();
+        int[] receive = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            receive[i] = input.read();
+        }
+
+        return receive;
     }
 
     private void serverDialog(Scanner in) throws IOException {
         System.out.print("Choose your port from 1025 to 65535: ");
-        int port = in.nextInt();
+        final int port = in.nextInt();
 
         System.out.println("\nYour ip & port: " + getCurrentIp() + " : " + Integer.toString(port));
         System.out.println("Waiting for a client...");
@@ -46,13 +97,13 @@ public class Network {
         String ip = in.nextLine();
 
         System.out.print("Enter port: ");
-        int port = in.nextInt();
+        final int port = in.nextInt();
 
         Socket server = new Socket(ip, port);
 
         input = server.getInputStream();
         output = server.getOutputStream();
-        
+
         System.out.println("Connected");
     }
 

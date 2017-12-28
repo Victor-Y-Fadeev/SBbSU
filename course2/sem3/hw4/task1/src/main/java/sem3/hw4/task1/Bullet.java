@@ -18,6 +18,7 @@ public class Bullet implements Coordinate {
 
     private int x;
     private int y;
+    private int fi;
     private int dx;
 
     /** Create Bullet. */
@@ -25,6 +26,7 @@ public class Bullet implements Coordinate {
         this.gc = gc;
         this.x = x;
         this.y = y;
+        this.fi = fi;
 
         b = Math.tan(Math.PI * fi / 180) - 2 * a * x;
         c = y - a * x * x - b * x;
@@ -51,6 +53,11 @@ public class Bullet implements Coordinate {
     }
 
     @Override
+    public int getFi() {
+        return fi;
+    }
+
+    @Override
     public void setX(int x) {
         this.x = x;
     }
@@ -58,6 +65,11 @@ public class Bullet implements Coordinate {
     @Override
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public void setFi(int fi) {
+        this.fi = fi;
     }
 
     /** Draw Bullet. */

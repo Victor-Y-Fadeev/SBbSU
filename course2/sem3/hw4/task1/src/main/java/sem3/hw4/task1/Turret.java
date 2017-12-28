@@ -38,6 +38,11 @@ public class Turret implements Coordinate {
     }
 
     @Override
+    public int getFi() {
+        return fi;
+    }
+
+    @Override
     public void setX(int x) {
         if ((x < 0) || (x > MAX_WIDTH)) {
             return;
@@ -53,6 +58,15 @@ public class Turret implements Coordinate {
         }
 
         this.y = y;
+    }
+
+    @Override
+    public void setFi(int fi) {
+        if ((fi < -225) || (fi > 45)) {
+            return;
+        }
+
+        this.fi = fi;
     }
 
     /** Up the turret's gun. */
