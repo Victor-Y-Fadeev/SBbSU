@@ -1,16 +1,16 @@
 package sem3.hw4.task1;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Enumeration;
 import java.util.Scanner;
 
 public class Network {
-    private ObjectInputStream input;
-    private ObjectOutputStream output;
+    private InputStream input;
+    private OutputStream output;
 
     public Network() throws IOException {
         Scanner in = new Scanner(System.in);
@@ -29,14 +29,14 @@ public class Network {
         System.out.print("Choose your port from 1025 to 65535: ");
         int port = in.nextInt();
 
-        InetAddress localHost = InetAddress.getLocalHost();
-        System.out.println("\nYour ip & port: " + localHost.getHostAddress() + " : " + Integer.toString(port));
+        System.out.println("\nYour ip & port: " + getCurrentIp() + " : " + Integer.toString(port));
         System.out.println("Waiting for a client...");
 
         ServerSocket server = new ServerSocket(port);
         Socket client = server.accept();
-        input = new ObjectInputStream(client.getInputStream());
-        output = new ObjectOutputStream(client.getOutputStream());
+
+        input = client.getInputStream();
+        output = client.getOutputStream();
 
         System.out.println("Connected");
     }
@@ -49,9 +49,30 @@ public class Network {
         int port = in.nextInt();
 
         Socket server = new Socket(ip, port);
-        input = new ObjectInputStream(server.getInputStream());
-        output = new ObjectOutputStream(server.getOutputStream());
 
+        input = server.getInputStream();
+        output = server.getOutputStream();
+        
         System.out.println("Connected");
+    }
+
+    private String getCurrentIp() throws IOException {
+        String ip = "";
+
+        Enumeration<NetworkInterface> network = NetworkInterface.getNetworkInterfaces();
+
+        while (network.hasMoreElements()) {
+            Enumeration<InetAddress> addresses = network.nextElement().getInetAddresses();
+
+            while (addresses.hasMoreElements()) {
+                String temp = addresses.nextElement().getHostAddress();
+
+                if (temp.contains("192.168.")) {
+                    ip = temp;
+                }
+            }
+        }
+
+        return ip.equals("") ? InetAddress.getLocalHost().getHostAddress() : ip;
     }
 }

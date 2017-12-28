@@ -49,7 +49,7 @@ public class Game extends Application {
     /** Main function. */
     public static void main(String[] args) throws IOException {
         network = new Network();
-        //launch(args);
+        launch(args);
     }
 
     private LinkedList<String> keyboardSettings(Scene scene) {
