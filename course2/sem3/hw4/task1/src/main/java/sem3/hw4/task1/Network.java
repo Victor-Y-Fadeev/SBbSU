@@ -9,8 +9,8 @@ import java.util.Enumeration;
 import java.util.Scanner;
 
 public class Network {
-    private InputStream input;
-    private OutputStream output;
+    private DataInputStream input;
+    private DataOutputStream output;
     private boolean server;
 
     public Network() {
@@ -59,7 +59,7 @@ public class Network {
         output.write(size);
 
         for (int i = 0; i < size; i++) {
-            output.write(send[i]);
+            output.writeInt(send[i]);
         }
 
         output.flush();
@@ -70,7 +70,7 @@ public class Network {
         int[] receive = new int[size];
 
         for (int i = 0; i < size; i++) {
-            receive[i] = input.read();
+            receive[i] = input.readInt();
         }
 
         return receive;
@@ -86,8 +86,8 @@ public class Network {
         ServerSocket server = new ServerSocket(port);
         Socket client = server.accept();
 
-        input = client.getInputStream();
-        output = client.getOutputStream();
+        input = new DataInputStream(client.getInputStream());
+        output = new DataOutputStream(client.getOutputStream());
 
         System.out.println("Connected");
     }
@@ -101,8 +101,8 @@ public class Network {
 
         Socket server = new Socket(ip, port);
 
-        input = server.getInputStream();
-        output = server.getOutputStream();
+        input = new DataInputStream(server.getInputStream());
+        output = new DataOutputStream(server.getOutputStream());
 
         System.out.println("Connected");
     }

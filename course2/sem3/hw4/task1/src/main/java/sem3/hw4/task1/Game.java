@@ -19,12 +19,15 @@ public class Game {
     private Network network;
     private Transfer transfer;
 
+    private int wait;
+
     public Game(Stage primaryStage, GraphicsContext gc, LinkedList<String> keys, Network network) {
         this.primaryStage = primaryStage;
         this.gc = gc;
         this.keys = keys;
         this.network = network;
 
+        wait = 100;
         transfer = new Transfer();
         map = new Map(gc);
 
@@ -82,7 +85,11 @@ public class Game {
                 remoteTurret.draw();
                 bullets.forEach(bullet -> bullet.draw());
 
-                transfer.emitState(network.synchronization(transfer.createState()));
+                if (wait == 0) {
+                    transfer.emitState(network.synchronization(transfer.createState()));
+                    wait = 100;
+                }
+                wait--;
             }
         }.start();
     }
@@ -107,20 +114,20 @@ public class Game {
 
     private class Transfer {
         public int[] createState() {
-            int size = 3 + newBullets.size() * 3;
+            int size = 3;// + newBullets.size() * 3;
             int[] send = new int[size];
 
             send[0] = currentTurret.getX();
             send[1] = currentTurret.getY();
             send[2] = currentTurret.getFi();
 
-            for (int i = 0; i < newBullets.size(); i++) {
+            /*for (int i = 0; i < newBullets.size(); i++) {
                 send[3 + i * 3] = newBullets.get(i).getX();
                 send[4 + i * 3] = newBullets.get(i).getY();
                 send[5 + i * 3] = newBullets.get(i).getFi();
-            }
+            }*/
 
-            newBullets.clear();
+            //newBullets.clear();
             return send;
         }
 
@@ -129,9 +136,9 @@ public class Game {
             remoteTurret.setY(state[1]);
             remoteTurret.setFi(state[2]);
 
-            for (int i = 0; i < state.length; i++) {
+            /*for (int i = 0; i < state.length; i++) {
                 bullets.add(new Bullet(gc, state[3 + i * 3], state[4 + i * 3], state[5 + i * 3]));
-            }
+            }*/
         }
     }
 }
