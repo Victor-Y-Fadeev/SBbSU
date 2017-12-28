@@ -163,7 +163,7 @@ public class Game {
             remoteTurret.setY(state[1]);
             remoteTurret.setFi(state[2]);
 
-            for (int i = 0; i < state.length; i++) {
+            for (int i = 0; i < state.length - 3; i++) {
                 if (state[3 + i * 4] == 0) {
                     bullets.add(new LowBullet(gc, state[4 + i * 4], state[5 + i * 4], state[6 + i * 4]));
                 } else {
