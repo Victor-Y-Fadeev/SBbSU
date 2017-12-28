@@ -65,6 +65,8 @@ public abstract class Bullet implements Coordinate {
         return explodeRadius;
     }
 
+    public abstract int getType();
+
     /** Draw Bullet. */
     public void draw() {
         gc.drawImage(bullet, x - bulletSize / 2, y - bulletSize / 2);

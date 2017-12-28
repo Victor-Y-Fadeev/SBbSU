@@ -11,11 +11,16 @@ public class LowBullet extends Bullet {
         this.x = x;
         this.y = y;
 
-        a = 0.005;
-        bulletSize = 20;
+        a = 0.004;
+        bulletSize = 10;
         explodeRadius = 15;
-        bullet = new Image("bullet.png");
+        bullet = new Image("lowBullet.png");
 
         setFi(fi);
+    }
+
+    @Override
+    public int getType() {
+        return 0;
     }
 }

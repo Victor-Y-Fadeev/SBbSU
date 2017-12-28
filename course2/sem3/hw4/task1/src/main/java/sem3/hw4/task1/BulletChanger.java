@@ -32,8 +32,8 @@ public class BulletChanger {
         final int BLOCK_SIZE = 85;
         final int FREE_SPACE = 10;
 
-        Image lowBullet = new Image("bullet.png");
-        Image highBullet = new Image("bullet.png");
+        Image lowBullet = new Image("lowBullet.png");
+        Image highBullet = new Image("highBullet.png");
 
         gc.setLineWidth(2);
         gc.setStroke(Color.BLACK);

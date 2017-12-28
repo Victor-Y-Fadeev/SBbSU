@@ -33,11 +33,11 @@ public class Game {
         map = new Map(gc);
 
         if (network.isServer()) {
-            currentTurret = new Turret(gc, 340, 0, new  LowBulletFactory(), "turret.png");
-            remoteTurret = new Turret(gc, 1020, 0, new  LowBulletFactory(), "turret.png");
+            currentTurret = new Turret(gc, 340, 0, new  LowBulletFactory(), "serverTurret.png");
+            remoteTurret = new Turret(gc, 1020, 0, new  LowBulletFactory(), "clientTurret.png");
         } else {
-            currentTurret = new Turret(gc, 1020, 0, new  LowBulletFactory(), "turret.png");
-            remoteTurret = new Turret(gc, 340, 0, new  LowBulletFactory(), "turret.png");
+            currentTurret = new Turret(gc, 1020, 0, new  LowBulletFactory(), "clientTurret.png");
+            remoteTurret = new Turret(gc, 340, 0, new  LowBulletFactory(), "serverTurret.png");
         }
 
         map.putOnTheGround(currentTurret);
@@ -138,20 +138,20 @@ public class Game {
 
     private class Transfer {
         public int[] createState() {
-            int size = 3;// + newBullets.size() * 3;
+            int size = 3 + newBullets.size() * 4;
             int[] send = new int[size];
 
             send[0] = currentTurret.getX();
             send[1] = currentTurret.getY();
             send[2] = currentTurret.getFi();
-
-            /*for (int i = 0; i < newBullets.size(); i++) {
-                send[3 + i * 3] = newBullets.get(i).getX();
-                send[4 + i * 3] = newBullets.get(i).getY();
-                send[5 + i * 3] = newBullets.get(i).getFi();
+            for (int i = 0; i < newBullets.size(); i++) {
+                send[3 + i * 4] = newBullets.get(i).getType();
+                send[4 + i * 4] = newBullets.get(i).getX();
+                send[5 + i * 4] = newBullets.get(i).getY();
+                send[6 + i * 4] = newBullets.get(i).getFi();
             }
 
-            newBullets.clear();*/
+            newBullets.clear();
             return send;
         }
 
@@ -160,9 +160,13 @@ public class Game {
             remoteTurret.setY(state[1]);
             remoteTurret.setFi(state[2]);
 
-            /*for (int i = 0; i < state.length; i++) {
-                bullets.add(new Bullet(gc, state[3 + i * 3], state[4 + i * 3], state[5 + i * 3]));
-            }*/
+            for (int i = 0; i < state.length; i++) {
+                if (state[3 + i * 4] == 0) {
+                    bullets.add(new LowBullet(gc, state[4 + i * 4], state[5 + i * 4], state[6 + i * 4]));
+                } else {
+                    bullets.add(new HighBullet(gc, state[4 + i * 4], state[5 + i * 4], state[6 + i * 4]));
+                }
+            }
         }
     }
 }
