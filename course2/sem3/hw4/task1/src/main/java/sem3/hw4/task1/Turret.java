@@ -4,6 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import javax.swing.*;
+
 /** Turret class. */
 public class Turret implements Coordinate {
     private static final int MAX_WIDTH = 1360;
@@ -13,18 +15,20 @@ public class Turret implements Coordinate {
     private final GraphicsContext gc;
     private final Image turret;
 
+    private BulletFactory factory;
     private int x;
     private int y;
     private int fi;
 
     /** Create Turret. */
-    public Turret(GraphicsContext gc, int x, int y) {
+    public Turret(GraphicsContext gc, int x, int y, BulletFactory factory, String path) {
+        this.factory = factory;
         this.gc = gc;
         this.x = x;
         this.y = y;
         this.fi = -90;
 
-        turret = new Image("turret.png");
+        turret = new Image(path);
     }
 
     @Override
@@ -69,6 +73,10 @@ public class Turret implements Coordinate {
         this.fi = fi;
     }
 
+    public void changeFactory(BulletFactory factory) {
+        this.factory = factory;
+    }
+
     /** Up the turret's gun. */
     public void gunUp() {
         if (fi < -225) {
@@ -98,6 +106,6 @@ public class Turret implements Coordinate {
 
     /** Gun fire. */
     public Bullet fire() {
-        return new Bullet(gc, (int) (x + Math.cos(Math.PI * fi / 180) * GUN_SIZE), (int) (y + Math.sin(Math.PI * fi / 180) * GUN_SIZE), fi);
+        return factory.createBullet(gc, (int) (x + Math.cos(Math.PI * fi / 180) * GUN_SIZE), (int) (y + Math.sin(Math.PI * fi / 180) * GUN_SIZE), fi);
     }
 }

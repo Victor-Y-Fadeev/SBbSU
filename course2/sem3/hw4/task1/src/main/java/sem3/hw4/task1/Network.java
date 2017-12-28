@@ -22,10 +22,10 @@ public class Network {
         try {
             if ((respond.charAt(0) == 'Y') || (respond.charAt(0) == 'y')) {
                 server = true;
-                serverDialog(in);
+                //serverDialog(in);
             } else {
                 server = false;
-                clientDialog(in);
+                //clientDialog(in);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +56,7 @@ public class Network {
 
     private void sendData(int[] send) throws IOException {
         final int size = send.length;
-        output.write(size);
+        output.writeInt(size);
 
         for (int i = 0; i < size; i++) {
             output.writeInt(send[i]);
@@ -66,7 +66,7 @@ public class Network {
     }
 
     private int[] receiveData() throws IOException {
-        final int size = input.read();
+        final int size = input.readInt();
         int[] receive = new int[size];
 
         for (int i = 0; i < size; i++) {
@@ -124,6 +124,6 @@ public class Network {
             }
         }
 
-        return ip.equals("") ? InetAddress.getLocalHost().getHostAddress() : ip;
+        return ip.isEmpty() ? InetAddress.getLocalHost().getHostAddress() : ip;
     }
 }

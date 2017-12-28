@@ -15,6 +15,7 @@ public class Game {
     private Turret remoteTurret;
     private LinkedList<Bullet> bullets;
     private LinkedList<Bullet> newBullets;
+    private BulletChanger changer;
 
     private Network network;
     private Transfer transfer;
@@ -32,11 +33,11 @@ public class Game {
         map = new Map(gc);
 
         if (network.isServer()) {
-            currentTurret = new Turret(gc, 340, 0);
-            remoteTurret = new Turret(gc, 1020, 0);
+            currentTurret = new Turret(gc, 340, 0, new  LowBulletFactory(), "turret.png");
+            remoteTurret = new Turret(gc, 1020, 0, new  LowBulletFactory(), "turret.png");
         } else {
-            currentTurret = new Turret(gc, 1020, 0);
-            remoteTurret = new Turret(gc, 340, 0);
+            currentTurret = new Turret(gc, 1020, 0, new  LowBulletFactory(), "turret.png");
+            remoteTurret = new Turret(gc, 340, 0, new  LowBulletFactory(), "turret.png");
         }
 
         map.putOnTheGround(currentTurret);
@@ -44,6 +45,7 @@ public class Game {
 
         bullets = new LinkedList<>();
         newBullets = new LinkedList<>();
+        changer = new BulletChanger(gc, currentTurret, true);
     }
 
     public void play() {
@@ -71,11 +73,32 @@ public class Game {
                     currentTurret.gunDown();
                 }
 
+                if (keys.contains("SPACE")) {
+                    changer.change();
+                    keys.remove("SPACE");
+                }
+
                 if (keys.contains("ENTER")) {
                     Bullet temp = currentTurret.fire();
                     bullets.add(temp);
                     newBullets.add(temp);
                     keys.remove("ENTER");
+                }
+
+                for (Bullet bullet : bullets) {
+                    if (map.isOnTheGround(bullet)) {
+                        bullet.explode();
+
+                        if (turretDestroy(currentTurret, bullet)) {
+                            primaryStage.close();
+                            System.out.println("\nYou lose!");
+                        }
+
+                        if (turretDestroy(remoteTurret, bullet)) {
+                            primaryStage.close();
+                            System.out.println("\nYou win!");
+                        }
+                    }
                 }
 
                 cleanBullets(map, bullets);
@@ -84,24 +107,25 @@ public class Game {
                 currentTurret.draw();
                 remoteTurret.draw();
                 bullets.forEach(bullet -> bullet.draw());
+                changer.draw();
 
-                if (wait == 0) {
+                /*if (wait == 0) {
                     transfer.emitState(network.synchronization(transfer.createState()));
                     wait = 100;
                 }
-                wait--;
+                wait--;*/
             }
         }.start();
+    }
+
+    private boolean turretDestroy(Turret turret, Bullet bullet) {
+        return Math.pow(turret.getX() - bullet.getX(), 2) + Math.pow(turret.getY() - bullet.getY(), 2) < Math.pow(bullet.getRadius(), 2);
     }
 
     private void cleanBullets(Map map, LinkedList<Bullet> bullets) {
         LinkedList<Bullet> toRemove = new LinkedList<>();
 
         for (Bullet bullet : bullets) {
-            if (map.isOnTheGround(bullet)) {
-                bullet.explode();
-            }
-
             if (bullet.isExploded()) {
                 toRemove.add(bullet);
             }
@@ -125,9 +149,9 @@ public class Game {
                 send[3 + i * 3] = newBullets.get(i).getX();
                 send[4 + i * 3] = newBullets.get(i).getY();
                 send[5 + i * 3] = newBullets.get(i).getFi();
-            }*/
+            }
 
-            //newBullets.clear();
+            newBullets.clear();*/
             return send;
         }
 

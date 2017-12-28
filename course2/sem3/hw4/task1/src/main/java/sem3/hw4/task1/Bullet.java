@@ -4,43 +4,23 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 /** Bullet class. */
-public class Bullet implements Coordinate {
-    private static final int MAX_WIDTH = 1360;
-    private static final int MAX_HEIGHT = 765;
-    private static final int BULLET_SIZE = 20;
-    private final GraphicsContext gc;
-    private final Image bullet;
+public abstract class Bullet implements Coordinate {
+    protected static final int MAX_WIDTH = 1360;
+    protected static final int MAX_HEIGHT = 765;
 
-    private boolean exploded = false;
-    private double a = 0.005;
-    private double b;
-    private double c;
+    protected static int bulletSize;
+    protected static int explodeRadius;
+    protected GraphicsContext gc;
+    protected Image bullet;
 
-    private int x;
-    private int y;
-    private int fi;
-    private int dx;
+    protected boolean exploded = false;
+    protected double a;
+    protected double b;
+    protected double c;
 
-    /** Create Bullet. */
-    public Bullet(GraphicsContext gc, int x, int y, int fi) {
-        this.gc = gc;
-        this.x = x;
-        this.y = y;
-        this.fi = fi;
-
-        b = Math.tan(Math.PI * fi / 180) - 2 * a * x;
-        c = y - a * x * x - b * x;
-
-        if (fi > -90) {
-            dx = 1;
-        } else if (fi < -90) {
-            dx = -1;
-        } else {
-            explode();
-        }
-
-        bullet = new Image("bullet.png");
-    }
+    protected int x;
+    protected int y;
+    protected int dx;
 
     @Override
     public int getX() {
@@ -54,7 +34,7 @@ public class Bullet implements Coordinate {
 
     @Override
     public int getFi() {
-        return fi;
+        return (int) (Math.atan(b + 2 * a * x) * 180 / Math.PI);
     }
 
     @Override
@@ -69,12 +49,25 @@ public class Bullet implements Coordinate {
 
     @Override
     public void setFi(int fi) {
-        this.fi = fi;
+        b = Math.tan(Math.PI * fi / 180) - 2 * a * x;
+        c = y - a * x * x - b * x;
+
+        if (fi > -90) {
+            dx = 1;
+        } else if (fi < -90) {
+            dx = -1;
+        } else {
+            exploded = true;
+        }
+    }
+
+    public int getRadius() {
+        return explodeRadius;
     }
 
     /** Draw Bullet. */
     public void draw() {
-        gc.drawImage(bullet, x - BULLET_SIZE / 2, y - BULLET_SIZE / 2);
+        gc.drawImage(bullet, x - bulletSize / 2, y - bulletSize / 2);
 
         x += dx;
         y = (int) (a * x * x + b * x + c);
