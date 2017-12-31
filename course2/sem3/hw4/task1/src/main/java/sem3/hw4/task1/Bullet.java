@@ -34,7 +34,7 @@ public abstract class Bullet implements Coordinate {
 
     @Override
     public int getFi() {
-        return (int) (Math.atan(b + 2 * a * x) * 180 / Math.PI);
+        return dx > 0 ? (int) (Math.atan(b + 2 * a * x) * 180 / Math.PI) : (int) (- 135 - Math.atan(b + 2 * a * x) * 180 / Math.PI);
     }
 
     @Override
