@@ -2,6 +2,7 @@
 *.jar
 *.class
 
+**/target/
 **/out/**/*.fxml
 **/.idea/**/*.xml
 output.txt
