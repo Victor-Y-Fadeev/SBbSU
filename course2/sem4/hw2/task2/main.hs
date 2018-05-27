@@ -1,2 +1,2 @@
 degrees :: Int -> [Int]
-degrees n = [ 2 ^ x | x <- [0..n]]
+degrees n = [ 2 ^ i | i <- [0..n]]
