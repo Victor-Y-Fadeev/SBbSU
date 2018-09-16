@@ -1,21 +1,27 @@
 import System.Random
 import Data.Tree
 
-randomize :: Tree a -> (Tree Int, Int)
-randomize tree = randomizeTree tree 0 where
-    randomizeTree (Node { rootLabel = r, subForest = f }) n = (Node { rootLabel = n, subForest = fst (randomizeForest f (n + 1)) }, snd (randomizeForest f (n + 1)))
-    randomizeForest [] n = ([], n)
-    randomizeForest (x:xs) n = ((fst (randomizeTree x n)):(fst (randomizeForest xs (snd (randomizeTree x n)))), snd (randomizeForest xs (snd (randomizeTree x n))))
+nextRandom :: Int -> IO Int
+nextRandom last = do
+    n  <- randomRIO (0, 1000)
+    return (last + n)
 
-randomList :: Int -> IO [(Int, Int)]
-randomList 0 = return []
-randomList n = do
-    x  <- randomRIO (0, 1000)
-    xs <- randomList' (n - 1) 1 x
-    return ((0, x):xs)
+randomizeIO :: Tree a -> IO (Tree Int)
+randomizeIO tree = do
+    pair <- randomizeTree tree 0 
+    return (fst pair)    
     where
-        randomList' 0 _ _ = return []
-        randomList' n i last = do
-            x  <- randomRIO (0, 1000)
-            xs <- randomList' (n - 1) (i + 1) (x + last)
-            return ((i, x + last):xs)
+        randomizeTree (Node { subForest = forest }) num = do
+            n <- nextRandom num
+            f <- randomizeForest forest n
+            return (Node { rootLabel = n, subForest = fst f }, snd f)
+        randomizeForest [] num = return ([], num)
+        randomizeForest (x:xs) num = do
+            tree <- randomizeTree x num
+            forest <- randomizeForest xs (snd tree)
+            return ((fst tree):(fst forest), snd forest)
+
+showTree :: IO (Tree Int) -> IO ()
+showTree tree = do
+    t <- tree
+    putStr (drawTree (fmap show t))
