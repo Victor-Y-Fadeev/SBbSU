@@ -25,11 +25,13 @@ clean:
 	rm -rf *.o \$(EXECUTABLE)
 EOF
 
+echo "Task $num: Makefile generated..."
+
 if ! make >/dev/null 2>/dev/null ; then
 	make
 	exit 1;
 fi
 
-#make -f Makefile clean
+make -f Makefile clean >/dev/null 2>/dev/null
 
 exit 0
