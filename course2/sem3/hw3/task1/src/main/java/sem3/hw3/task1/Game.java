@@ -18,8 +18,6 @@ import java.util.LinkedList;
 public class Game extends Application {
     private static final int BASIC_WIDTH = 1360;
     private static final int BASIC_HEIGHT = 765;
-    private static final int SCREEN_WIDTH = (int) Screen.getPrimary().getVisualBounds().getWidth();
-    private static final int SCREEN_HEIGHT = (int) Screen.getPrimary().getVisualBounds().getHeight();
 
     /** Start The Game. */
     @Override
@@ -33,11 +31,13 @@ public class Game extends Application {
         primaryStage.setScene(scene);
         LinkedList<String> keys = keyboardSettings(scene);
 
-        Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
+        int screenWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
+        int screenHeight = (int) Screen.getPrimary().getVisualBounds().getHeight() + 40;
+        Canvas canvas = new Canvas(screenWidth, screenHeight);
         root.getChildren().add(canvas);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.scale((double) SCREEN_WIDTH / BASIC_WIDTH, (double) SCREEN_HEIGHT / BASIC_HEIGHT);
+        gc.scale((double) screenWidth / BASIC_WIDTH, (double) screenHeight / BASIC_HEIGHT);
 
         gameMechanics(primaryStage, gc, keys);
         primaryStage.show();

@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 /** The Game class. */
 public class Game {
-    private static final int CHECK_UPDATES = 10;
+    private static final int CHECK_UPDATES = 5;
     private Stage primaryStage;
     private GraphicsContext gc;
     private LinkedList<String> keys;

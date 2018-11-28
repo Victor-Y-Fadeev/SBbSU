@@ -10,8 +10,9 @@ import java.util.Scanner;
 
 /** Network class. */
 public class Network {
-    private DataInputStream input;
-    private DataOutputStream output;
+    private static final int MESSAGE = 32767;
+    private BufferedReader input;
+    private PrintWriter output;
     private boolean server;
 
     /** Create Network. */
@@ -60,21 +61,21 @@ public class Network {
 
     private void sendData(int[] send) throws IOException {
         final int size = send.length;
-        output.writeInt(size);
+        output.write(size);
 
         for (int i = 0; i < size; i++) {
-            output.writeInt(send[i]);
+            output.write(send[i]);
         }
 
         output.flush();
     }
 
     private int[] receiveData() throws IOException {
-        final int size = input.readInt();
+        final int size = input.read();
         int[] receive = new int[size];
 
         for (int i = 0; i < size; i++) {
-            receive[i] = input.readInt();
+            receive[i] = input.read();
         }
 
         return receive;
@@ -90,10 +91,13 @@ public class Network {
         ServerSocket server = new ServerSocket(port);
         Socket client = server.accept();
 
-        input = new DataInputStream(client.getInputStream());
-        output = new DataOutputStream(client.getOutputStream());
+        input = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        output = new PrintWriter(new OutputStreamWriter(client.getOutputStream()), true);
 
-        System.out.println("Connected");
+        output.write(MESSAGE);
+        output.flush();
+        if (input.read() == MESSAGE)
+            System.out.println("Connected");
     }
 
     private void clientDialog(Scanner in) throws IOException {
@@ -105,10 +109,13 @@ public class Network {
 
         Socket server = new Socket(ip, port);
 
-        input = new DataInputStream(server.getInputStream());
-        output = new DataOutputStream(server.getOutputStream());
+        input = new BufferedReader(new InputStreamReader(server.getInputStream()));
+        output = new PrintWriter(new OutputStreamWriter(server.getOutputStream()), true);
 
-        System.out.println("Connected");
+        if (input.read() == MESSAGE)
+            System.out.println("Connected");
+        output.write(MESSAGE);
+        output.flush();
     }
 
     private String getCurrentIp() throws IOException {
