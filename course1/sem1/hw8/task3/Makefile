@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-c -Wall
+CFLAGS=-c -Wall -std=c++11
 LDFLAGS=
 SOURCES=hashTable.cpp listOfString.cpp main.cpp string.cpp
 OBJECTS=$(SOURCES:.cpp=.o)

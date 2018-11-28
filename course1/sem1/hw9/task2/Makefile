@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-c -Wall
+CFLAGS=-c -Wall -std=c++11
 LDFLAGS=
 SOURCES=aStar.cpp main.cpp priorityQueue.cpp
 OBJECTS=$(SOURCES:.cpp=.o)

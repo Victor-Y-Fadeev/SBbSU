@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-c -Wall
+CFLAGS=-c -Wall -std=c++11
 LDFLAGS=
 SOURCES=huffman.cpp main.cpp tree.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
