@@ -1,6 +1,7 @@
 *.o
 *.exe
 *.out
+*.txt
 *.iml
 *.jar
 *.class
@@ -9,4 +10,4 @@
 **/out/
 **/target/
 
-output.txt
+!input.txt

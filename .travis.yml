@@ -15,6 +15,10 @@ jobs:
       language: java
       jdk: openjdk11
       env: FOLDER=course1/sem2 BUILD=javaBuild.sh TEST=javaTest.sh
+    - stage: Course 2 (semester 3)
+      language: java
+      jdk: openjdk11
+      env: FOLDER=course2/sem3 BUILD=javaBuild.sh TEST=javaTest.sh
 
 install:
     - sudo apt-get install maven

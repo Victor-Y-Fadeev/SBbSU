@@ -63,8 +63,8 @@ public class CodeTest {
                 "    protected Float floatField;\n" +
                 "    public String stringField;\n\n" +
 
-                "    public ExampleClass(Float arg0);\n" +
-                "    protected ExampleClass();\n\n" +
+                "    protected ExampleClass();\n" +
+                "    public ExampleClass(Float arg0);\n\n" +
 
                 "    public char charFunction();\n" +
                 "    protected abstract String toDoSomething(String arg0, int arg1);\n\n" +
