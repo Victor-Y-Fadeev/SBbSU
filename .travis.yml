@@ -19,6 +19,11 @@ jobs:
       language: java
       jdk: openjdk11
       env: FOLDER=course2/sem3 BUILD=javaBuild.sh TEST=javaTest.sh
+    - stage: Course 2 (semester 4)
+      language: haskell
+      compiler: ghc
+      env: FOLDER=course2/sem4 BUILD=haskellBuild.sh
+      install: skip
 
 install:
     - sudo apt-get install maven

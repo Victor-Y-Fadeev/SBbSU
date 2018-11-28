@@ -7,46 +7,37 @@ testScript=$3
 cd $folder
 echo -e "\nCourse ${folder:6:1} (semester ${folder:11})\n"
 
-for a in 0 1 2
+for i in `ls -d */ | sort -V`
 do
-    for i in `ls -d */`
+    i=${i%"/"}
+
+    if [[ $i == hw* ]] ; then
+        echo "Homework ${i#"hw"}"
+    else
+        echo "Test ${i#"test"}"
+    fi
+    cd $i
+
+    for j in `ls -d */ | sort -V`
     do
-        i=${i%"/"}
-        if [[ (${#i} == 3 && $a == 0) || (${#i} == 4 && $a == 1) || (${#i} == 5 && $a == 2) ]] ; then
-            if [[ $a == 2 ]] ; then
-                echo "Test ${i#"test"}"
-            else
-                echo "Homework ${i#"hw"}"
-            fi
-            cd $i
-    
-            for b in 0 1
-            do
-                for j in `ls -d */`
-                do
-                    j=${j%"/"}
-                    if [[ (${#j} == 5 && $b == 0) || (${#j} == 6 && $b == 1) ]] ; then        
-                        cd $j
-                        
-                        if ! ../../../../scripts/$buildScript ${j#"task"} ; then
-                            exit 1
-                        fi
+        j=${j%"/"}
+        cd $j
 
-                        if ! [[ -z $testScript ]] ; then
-                            if ! ../../../../scripts/$testScript ${j#"task"} ; then
-                                exit 1
-                            fi
-                        fi
-
-                        cd ..        
-                        fi
-                done    
-            done
-    
-            cd ..
-            echo ""
+        if ! ../../../../scripts/$buildScript ${j#"task"} ; then
+            exit 1
         fi
+
+        if ! [[ -z $testScript ]] ; then
+            if ! ../../../../scripts/$testScript ${j#"task"} ; then
+                exit 1
+            fi
+        fi
+
+        cd ..
     done
+
+    cd ..
+    echo ""
 done
 
 cd ../..
