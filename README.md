@@ -1,5 +1,6 @@
-СПбГУ [![Build Status](https://travis-ci.org/Victor-Y-Fadeev/SPbSU.svg?branch=master)](https://travis-ci.org/Victor-Y-Fadeev/SPbSU)
+СПбГУ
 =====
+[![Build Status](https://travis-ci.org/Victor-Y-Fadeev/SPbSU.svg?branch=master)](https://travis-ci.org/Victor-Y-Fadeev/SPbSU)
 
 Этот репозиторий посвящен работе над домашними заданиями по программированию, ссылка на [HwProj](http://hwproj.me/courses/10).
 
